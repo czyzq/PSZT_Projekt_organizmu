@@ -56,14 +56,14 @@ public class Main {
     {
         addValues();
         JFrame frame = new JFrame("PSZT projekt organizmu");
-
         GUI gui = new GUI();
+        frame.add(gui);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600,500));
-
         frame.setVisible(true);
         frame.setResizable(false);
-        frame.add(gui);
+
+
 
 
 

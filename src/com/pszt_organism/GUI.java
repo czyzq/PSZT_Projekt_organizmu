@@ -2,7 +2,6 @@ package com.pszt_organism;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -13,17 +12,20 @@ import java.text.NumberFormat;
 import static java.lang.Integer.parseInt;
 
 /**
- * Created by konra on 02.05.2017.
+ * Created by konrad on 02.05.2017.
  */
 public class GUI extends JPanel{
 
     private JTable jt;
     private JScrollPane jsp;
     private JButton buttonStart;
-    private JLabel labelAlg,labelN, labelM;
-    private JFormattedTextField paramM, paramN;
-    private JComboBox algEvo;
+    private JLabel labelAlg,labelN, labelM, labelMi,labelLambda;
+    private JFormattedTextField paramM;
+    private JComboBox algEvo,paramN, paramMi,paramLambda;
     private  String[] algoritmList = {" ","λ+ μ","λ, μ"};
+    private String[] nList ={"2","3","4","5"};
+    private String[] miList={"10","20","50","100"};
+    private String[] lambdaList={"5","10"};
     private Object[][] tableData;
     private String[] colNames;
     private TableModel model;
@@ -63,8 +65,8 @@ public class GUI extends JPanel{
         labelAlg.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelAlg);
 
-        labelN = new JLabel("N");
-        labelN.setBounds(440,90,120,20);
+        labelN = new JLabel("Parametr N");
+        labelN.setBounds(440,50,120,20);
         labelN.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelN);
 
@@ -75,20 +77,47 @@ public class GUI extends JPanel{
         formatter.setMinimum(0);
         formatter.setMaximum(Integer.MAX_VALUE);
         formatter.setAllowsInvalid(false);
-        paramN = new JFormattedTextField(formatter);
-        paramN.setBounds(440,110,120,20);
-        paramN.setHorizontalAlignment(SwingConstants.CENTER);
+        //paramN = new JFormattedTextField(formatter);
+        //
+        //paramN.setHorizontalAlignment(SwingConstants.CENTER);
+        //add(paramN);
+        paramN=new JComboBox(nList);
+        paramN.setSelectedIndex(0);
+        ((JLabel)paramN.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
+        paramN.setBounds(440,75,120,20);
         add(paramN);
 
         labelM = new JLabel("M");
-        labelM.setBounds(440,180,120,20);
+        labelM.setBounds(440,100,120,20);
         labelM.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelM);
 
         paramM = new JFormattedTextField(formatter);
-        paramM.setBounds(440,200,120,20);
+        paramM.setBounds(440,125,120,20);
         paramM.setHorizontalAlignment(SwingConstants.CENTER);
         add(paramM);
+
+        labelMi = new JLabel("μ");
+        labelMi.setBounds(440,150,120,20);
+        labelMi.setHorizontalAlignment(SwingConstants.CENTER);
+        add(labelMi);
+
+        paramMi = new JComboBox(miList);
+        paramMi.setSelectedIndex(0);
+        ((JLabel)paramMi.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
+        paramMi.setBounds(440,175,120,20);
+        add(paramMi);
+
+        labelLambda = new JLabel("Lambda");
+        labelLambda.setBounds(440,200,120,20);
+        labelLambda.setHorizontalAlignment(SwingConstants.CENTER);
+        add(labelLambda);
+
+        paramLambda = new JComboBox(lambdaList);
+        paramLambda.setSelectedIndex(0);
+        ((JLabel)paramLambda.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
+        paramLambda.setBounds(440,225,120,20);
+        add(paramLambda);
 
 
 
@@ -96,12 +125,12 @@ public class GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               int n_temp =parseInt(paramN.getText());
+               int n_temp =parseInt(String.valueOf(paramN.getSelectedItem()));
 
                 modelMethods(n_temp);
                 jt.setModel(model); // te metody sa ze sobą powiązane
 
-                //model.setValueAt(n_temp,1,1); ustawianie danej wartosci
+               // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
 
 
 
@@ -111,11 +140,11 @@ public class GUI extends JPanel{
             }
         });
     }
-    private void modelMethods(int temp)
+    public void modelMethods(int temp)
     {
         int n_temp= temp;
         tableData= new Object[n_temp][n_temp];
-        colNames = new String[n_temp]; // domyślnie podłączona smienna przez button
+        colNames = new String[n_temp]; // domyślnie podłączona zmienna przez button
         for( int i=0;i<n_temp;i++)
         {
             colNames[i]=Integer.toString(i+1);
@@ -153,5 +182,7 @@ public class GUI extends JPanel{
         };
        // jt.setModel(model);
     }
-
+    public void set1inTable( int row, int col){ // bo model to zmienna prywatna wiec trzeba metode publiczna do niej
+        model.setValueAt(1,row,col);
+    }
 }
