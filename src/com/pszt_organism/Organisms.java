@@ -145,8 +145,8 @@ public class Organisms {
         int [] tab = new int [mm*potegaDwojki*2];
         int [] tabX =new int [potegaDwojki];
         int [] tabY =new int [potegaDwojki];
-
         int index =0;
+
         for(int in=0; in<listaJedynek.size();in++)
         {
             Point pkt = listaJedynek.get(in);
