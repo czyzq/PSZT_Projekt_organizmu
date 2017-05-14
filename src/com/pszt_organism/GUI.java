@@ -65,7 +65,7 @@ public class GUI extends JPanel{
         labelAlg.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelAlg);
 
-        labelN = new JLabel("Parametr N");
+        labelN = new JLabel("Parametr N (2^x)");
         labelN.setBounds(440,50,120,20);
         labelN.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelN);
@@ -185,4 +185,11 @@ public class GUI extends JPanel{
     public void set1inTable( int row, int col){ // bo model to zmienna prywatna wiec trzeba metode publiczna do niej
         model.setValueAt(1,row,col);
     }
+
+    ////////// GET NA PARAMETRY/////////////
+    public int getN(){return parseInt(String.valueOf(paramN.getSelectedItem()));}
+    public int getM(){return parseInt(paramM.getText().toString());}
+    public int getMi(){return parseInt(String.valueOf(paramMi.getSelectedItem()));}
+    public int getLambda(){return parseInt(String.valueOf(paramLambda.getSelectedItem()));}
+
 }
