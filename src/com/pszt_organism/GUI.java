@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.util.HashSet;
 
 import static java.lang.Integer.parseInt;
 
@@ -29,6 +30,7 @@ public class GUI extends JPanel{
     private Object[][] tableData;
     private String[] colNames;
     private TableModel model;
+
     public GUI()
     {
         setLayout(null);
