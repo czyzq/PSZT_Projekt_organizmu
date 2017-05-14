@@ -140,7 +140,7 @@ public class Organisms {
     }
 
     //zamienianie polozenia na wektor bitowy
-    public static int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki )
+    public static int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki)
     {
         int [] tab = new int [mm*potegaDwojki*2];
         int [] tabX =new int [potegaDwojki];
