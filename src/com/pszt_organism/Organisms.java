@@ -222,6 +222,44 @@ public class Organisms {
         return  tab;
     }
 
+    public static ArrayList<Point> wektorNaPolozenie(int[] WektorBitow, int PotegaDwojki)
+    {
+        ArrayList<Point> ListaPunktow = new ArrayList<>();
+        int index =0;
+        int x;
+        int y;
+        while(index!=WektorBitow.length)
+        {
+            x=0;
+            y=0;
+
+            for(int i=0; i<PotegaDwojki; i++) //dziele sobie caly wektor na czesci opisujace x-sy i nizej y-ki
+            {
+                if(WektorBitow[index]==1)
+                {
+                    x+=Math.pow(2, i);
+                    //System.out.print("\n index w x: "+index);
+                }
+                index++;
+            }
+
+            for(int i=0; i<PotegaDwojki; i++)
+            {
+                if(WektorBitow[index]==1)
+                {
+                    y+=Math.pow(2, i);
+                    //System.out.print("\n index w y: "+index);
+                }
+                index++;
+            }
+        	/*test
+        	System.out.print("\n x: "+x);
+        	System.out.print("\n y: "+y);
+        	*/
+            ListaPunktow.add(new Point(x,y));
+        }
+        return ListaPunktow;
+    }
 
 
 }
