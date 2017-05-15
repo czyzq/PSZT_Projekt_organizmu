@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.lang.System;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by konrad on 14.05.2017.
@@ -13,6 +15,55 @@ public class Organisms {
 
 
     //karolina 14.05
+
+
+    private List<HashSet<Point>> listMPoints; // moze nazwac to genotyp?
+    private int n,m,mi;
+    private List<int[][]> orgnisms;
+
+    public Organisms(int n_tmp,int m_tmp,int mi_tmp){
+
+
+        n=n_tmp;
+        m=m_tmp;
+        mi=mi_tmp;
+        listMPoints=new ArrayList<>();
+        orgnisms= new ArrayList<>();
+        newEmptyArrays();
+        randomValues();
+
+    }
+    private void newEmptyArrays(){
+        int[][] emptyTable = new int[n][n]; //inicjalizacja pustej tablcy
+        for( int[] i : emptyTable) // uzupełnienie tablicy zerami
+            for (int ii : i)
+                i[ii]=0;
+
+        for(int i=0;i<mi;i++)   // dodanie mi razy do listy
+            orgnisms.add(emptyTable);
+    }
+    private void randomValues(){
+        Random rand =new Random();
+        HashSet<Point> mPoints = new HashSet<>();
+        int randomX;
+        int randomY;
+        for(int[][] table : orgnisms)                       //foreach dla kazdej tablicy z organisms
+        {
+            mPoints.clear();
+            while (mPoints.size() != m)                        //losowanie dopóki zbior sie nie zapelni
+            {
+                randomX = rand.nextInt(n);                  // losowanie polozenia 1
+                randomY = rand.nextInt(n);
+                mPoints.add(new Point(randomX, randomY));
+            }
+            listMPoints.add(mPoints);                          // dodanie nowego wektora bitowego do listy
+            for(Point p : mPoints)                            //dodanie 1 do tablic kolejno z zbioru
+            {
+                table[p.x][p.y]=1;
+            }
+        }
+
+    }
 
     //z tablicy wpisuje do listy punkty ktorych wartosc jest rowna 1
     public static   void  selectOne(int[][]envi, ArrayList<Point> list)
@@ -172,8 +223,5 @@ public class Organisms {
     }
 
 
-    private HashSet<Point> mPoints;
-    private int cosdopusha;
 
-    public Organisms(){};
 }

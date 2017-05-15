@@ -54,6 +54,7 @@ public class Main {
     }
     public static void main( String [] args)
     {
+
         addValues();
         JFrame frame = new JFrame("PSZT projekt organizmu");
         GUI gui = new GUI();
