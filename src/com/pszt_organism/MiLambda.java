@@ -1,4 +1,5 @@
 package com.pszt_organism;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -19,5 +20,19 @@ public class MiLambda {
             TabZmutowana[randomNum]=1;
 
         return TabZmutowana;
+    }
+
+    public static ArrayList<int[]>krzyzowanie (int[] Wektor1,int[] Wektor2, int min, int max) {
+        //krzyżowanie to łączenie połowy pierwszego wektora z drugąpołową drugiego
+        ArrayList<int[]> Wektory = new ArrayList<>();
+        int[] Temp = Wektor1;
+        for (int i = (Wektor1.length / 2) + 1; i <= Wektor1.length; i++)
+            {
+            Wektor1[i] = Wektor2[i];
+            Wektor2[i] = Temp[i];
+            }
+        Wektory.add(Wektor1);
+        Wektory.add(Wektor2);
+        return Wektory;
     }
 }
