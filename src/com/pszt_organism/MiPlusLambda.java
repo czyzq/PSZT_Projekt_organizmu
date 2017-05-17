@@ -1,4 +1,5 @@
 package com.pszt_organism;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -41,4 +42,21 @@ public class MiPlusLambda {
 
         return WektorZmutowany;
     }
+
+    public static ArrayList<int[]> krzyzowanie (int[] Wektor1, int[] Wektor2) {
+        //krzyżowanie na zasadzie ab cd => ad cb
+        ArrayList<int[]> Wektory = new ArrayList<>();
+        int[] Temp = Wektor1;
+        for (int i = (Wektor1.length / 2) + 1; i <= Wektor1.length; i++)
+        {
+            Wektor1[i] = Wektor2[i];
+            Wektor2[i] = Temp[i];
+        }
+        Wektory.add(Wektor1);
+        Wektory.add(Wektor2);
+        return Wektory;
+    }
+
+
+
 }
