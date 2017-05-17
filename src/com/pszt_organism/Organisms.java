@@ -71,6 +71,7 @@ public class Organisms {
         for (int i=0; i<envi.length;i++)
         {
             //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
+                //to chyba długość i-tej tablicy tzn. np. jeśli wcześniej była szerokość to teraz jest wysokość
             for(int j=0; j<envi[i].length;j++)
             {
                 if(envi[i][j]==1)

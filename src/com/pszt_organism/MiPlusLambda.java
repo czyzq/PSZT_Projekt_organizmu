@@ -22,8 +22,8 @@ public class MiPlusLambda {
         return TabZmutowana;
     }
 
-    public static ArrayList<int[]> krzyzowanie (int[] Wektor1, int[] Wektor2, int min, int max) {
-        //krzyżowanie to łączenie połowy pierwszego wektora z drugąpołową drugiego
+    public static ArrayList<int[]> krzyzowanie (int[] Wektor1, int[] Wektor2) {
+        //krzyżowanie na zasadzie ab cd => ad cb
         ArrayList<int[]> Wektory = new ArrayList<>();
         int[] Temp = Wektor1;
         for (int i = (Wektor1.length / 2) + 1; i <= Wektor1.length; i++)
@@ -35,4 +35,7 @@ public class MiPlusLambda {
         Wektory.add(Wektor2);
         return Wektory;
     }
+
+
+
 }

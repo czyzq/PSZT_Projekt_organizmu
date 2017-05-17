@@ -5,34 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by konrad on 14.05.2017.
  */
-public class MiLambda {
 
-    public static int[]mutacja(int[] Wektor, int min, int max)
-    {
-        //tak wlasciwie min to zawsze 0 a max o bedzie 2*potegaDwojki*m-1
+//MiLambda rozni sie od MiPlusLambda tylko wyborem mi osobników z R zamiast z R+P wiec dziedziczy z MiPlusLambda
+public class MiLambda extends MiPlusLambda {
 
-        int[]TabZmutowana = Wektor;
-        int randomNum = ThreadLocalRandom.current().nextInt(min, max);
-        System.out.print("\n numer random: "+randomNum);
-        if(TabZmutowana[randomNum]==1)
-            TabZmutowana[randomNum]=0;
-        else
-            TabZmutowana[randomNum]=1;
-
-        return TabZmutowana;
-    }
-
-    public static ArrayList<int[]>krzyzowanie (int[] Wektor1,int[] Wektor2, int min, int max) {
-        //krzyżowanie to łączenie połowy pierwszego wektora z drugąpołową drugiego
-        ArrayList<int[]> Wektory = new ArrayList<>();
-        int[] Temp = Wektor1;
-        for (int i = (Wektor1.length / 2) + 1; i <= Wektor1.length; i++)
-            {
-            Wektor1[i] = Wektor2[i];
-            Wektor2[i] = Temp[i];
-            }
-        Wektory.add(Wektor1);
-        Wektory.add(Wektor2);
-        return Wektory;
-    }
 }
