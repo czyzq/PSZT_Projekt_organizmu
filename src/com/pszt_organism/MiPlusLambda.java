@@ -43,12 +43,15 @@ public class MiPlusLambda {
         return WektorZmutowany;
     }
 
-    public static ArrayList<int[]> krzyzowanie (int[] Wektor1, int[] Wektor2) {
-        //krzyżowanie na zasadzie ab cd => ad cb
+    public static ArrayList<int[]> krzyzowanie_jednopunktowe (int[] Wektor1, int[] Wektor2){
+        //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
-        int[] Temp = Wektor1;
-        for (int i = (Wektor1.length / 2) + 1; i <= Wektor1.length; i++)
+        int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
+
+        for (int i = locus + 1; i <= Wektor1.length; i++)
+        if(Wektor1[i]!=Wektor2[i])
         {
+            int[] Temp = Wektor1;
             Wektor1[i] = Wektor2[i];
             Wektor2[i] = Temp[i];
         }
@@ -57,6 +60,31 @@ public class MiPlusLambda {
         return Wektory;
     }
 
+    public static ArrayList<int[]> krzyzowanie_dwupunktowe (int[] Wektor1, int[] Wektor2){
+        //krzyzowanie z 2 locusami, wybieranymi losowo
+        ArrayList<int[]> Wektory = new ArrayList<>();
+        //dwa rozne locusy
+        int locus1 = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
+        int locus2=Wektor1.length;
+            while(locus2==locus1) {
+            locus2 = ThreadLocalRandom.current().nextInt(0, Wektor1.length - 1);
+        }
+        if(locus1>locus2){
+            int temp=locus1;
+            locus1=locus2;
+            locus2=temp;
+        }
 
+        for (int i = locus1+1; i <= locus2; i++)
+            if(Wektor1[i]!=Wektor2[i])
+            {
+                int[] Temp = Wektor1;
+                Wektor1[i] = Wektor2[i];
+                Wektor2[i] = Temp[i];
+            }
+        Wektory.add(Wektor1);
+        Wektory.add(Wektor2);
+        return Wektory;
+    }
 
 }
