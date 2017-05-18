@@ -74,7 +74,7 @@ public class Organisms {
                 //to chyba długość i-tej tablicy tzn. np. jeśli wcześniej była szerokość to teraz jest wysokość
             for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]==1)
+                if(envi[i][j]!=0) //18.05 zm
                 {
                     list.add(new Point(i,j));
                 }
@@ -86,7 +86,7 @@ public class Organisms {
     public static void grupowanieCzesci(ArrayList<Point> listaJedynek, ArrayList<Point> cz)
     {
         //pobieram pierwszy element
-        Point pktPocz = listaJedynek.get(0);
+        Point pktPocz = listaJedynek.get(0); //teraz tak na prawde liczba elementow roznych od zera 18.05
         cz.add(pktPocz);
         listaJedynek.remove(0);
 
@@ -118,13 +118,13 @@ public class Organisms {
             //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
             for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]==1)
+                if(envi[i][j]!=0) //18.05 zm
                 {
-                    mkr=mkr+Math.sqrt(Math.pow(i+1-os, 2)+Math.pow(j+1-os, 2));
+                    mkr=mkr+Math.sqrt(Math.pow(i+1-os, 2)+Math.pow(j+1-os, 2))*envi[i][j]; //mniozenie odleglosci przez mase (licznik wzoru na srodek ciezkosci)
                 }
             }
         }
-        return mkr/mm;
+        return mkr/mm; //mianowniekiem wzoru na srodek ciezkosci jest suma mas a u nas zawsze bedzie to tyle ile ustalimy m
     }
 
     // oblicza moment bezwladnosci liczony wzgledem srodka ciezkosi
@@ -137,9 +137,9 @@ public class Organisms {
             //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
             for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]==1)
+                if(envi[i][j]!=0) //18.05 zm
                 {
-                    moment = moment+(Math.pow(i+1-sr, 2)+Math.pow(j+1-sr, 2));
+                    moment = moment+(Math.pow(i+1-sr, 2)+Math.pow(j+1-sr, 2))*envi[i][j]; //mnozenie kwadratu odleglosci przez mase
                 }
             }
         }
@@ -192,7 +192,7 @@ public class Organisms {
     }
 
     //zamienianie polozenia na wektor bitowy
-    public static int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki)
+    public static int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki, int[][]envi)
     {
         int [] tab = new int [mm*potegaDwojki*2];
         int [] tabX =new int [potegaDwojki];
@@ -202,16 +202,20 @@ public class Organisms {
         for(int in=0; in<listaJedynek.size();in++)
         {
             Point pkt = listaJedynek.get(in);
-            tabX= decToBin(pkt.x, potegaDwojki); //teraz sa tablice
-            //dla spr
-            //System.out.print( "\n wspolrzedna x punktu "+in+" : " +tabX[2]+tabX[1]+tabX[0]);
-            java.lang.System.arraycopy(tabX,0,tab,index,potegaDwojki); //tablice tabX od indeksu 0 kopiuje do tablicy tab od indeksu index  , kopiuje potegaDwojki elementow
-            index+=3;
-            tabY= decToBin(pkt.y, potegaDwojki);
-            // dla spr
-            //System.out.print( "\n wspolrzedna y punktu "+in+" : " +tabY[2]+tabY[1]+tabY[0]);
-            java.lang.System.arraycopy(tabY,0,tab,index,potegaDwojki);  // jak pozbyc sie przodu, bo import nie dziala
-            index+=3;
+            for(int w=0; w< envi[pkt.x][pkt.y] ;w++) //musi tyle razy wpisac ten punkt jako bity ile byla jego wartosc 18.05 zm
+            {
+                tabX= decToBin(pkt.x, potegaDwojki); //teraz sa tablice
+                //dla spr
+                //System.out.print( "\n wspolrzedna x punktu "+in+" : " +tabX[2]+tabX[1]+tabX[0]);
+                java.lang.System.arraycopy(tabX,0,tab,index,potegaDwojki); //tablice tabX od indeksu 0 kopiuje do tablicy tab od indeksu index  , kopiuje potegaDwojki elementow
+                index+=3;
+                tabY= decToBin(pkt.y, potegaDwojki);
+                // dla spr
+                //System.out.print( "\n wspolrzedna y punktu "+in+" : " +tabY[2]+tabY[1]+tabY[0]);
+                java.lang.System.arraycopy(tabY,0,tab,index,potegaDwojki);  // jak pozbyc sie przodu, bo import nie dziala
+                index+=3;
+            }
+
         }
 
         //to wypisuje pkt0.x, pkt0.y, pkt1.x, pkt1.y itd (ale w odwrotniej kolejnosci tzn, jezeli np x=1, y=3 to wypisze: 100, 110)
