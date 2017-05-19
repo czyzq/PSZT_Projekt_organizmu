@@ -3,6 +3,8 @@ package com.pszt_organism;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Random;
 
 public class Main {
 
@@ -63,10 +65,6 @@ public class Main {
         frame.setSize(new Dimension(600,500));
         frame.setVisible(true);
         frame.setResizable(false);
-
-
-
-
 
     }
 }

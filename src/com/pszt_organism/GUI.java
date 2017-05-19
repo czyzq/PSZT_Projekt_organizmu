@@ -25,7 +25,7 @@ public class GUI extends JPanel{
     private JComboBox algEvo,paramN, paramMi,paramLambda;
     private  String[] algoritmList = {" ","λ+ μ","λ, μ"};
     private String[] nList ={"2","3","4","5"};
-    private String[] miList={"10","20","50","100"};
+    private String[] miList={"2","10","20","50","100"};
     private String[] lambdaList={"5","10"};
     private Object[][] tableData;
     private String[] colNames;
@@ -97,6 +97,7 @@ public class GUI extends JPanel{
         paramM = new JFormattedTextField(formatter);
         paramM.setBounds(440,125,120,20);
         paramM.setHorizontalAlignment(SwingConstants.CENTER);
+        paramM.setText("1");
         add(paramM);
 
         labelMi = new JLabel("μ");
@@ -133,11 +134,11 @@ public class GUI extends JPanel{
                 jt.setModel(model); // te metody sa ze sobą powiązane
 
                // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
+            Organisms org = new Organisms(getN(),getM(),getMi());
+            org.print_deb();
 
 
-
-
-                System.out.println(jt.getColumnCount());
+               // System.out.println(jt.getColumnCount());
 
             }
         });

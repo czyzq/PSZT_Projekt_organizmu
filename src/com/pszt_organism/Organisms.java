@@ -34,13 +34,8 @@ public class Organisms {
 
     }
     private void newEmptyArrays(){
-        int[][] emptyTable = new int[n][n]; //inicjalizacja pustej tablcy
-        for( int[] i : emptyTable) // uzupełnienie tablicy zerami
-            for (int ii : i)
-                i[ii]=0;
-
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
-            orgnisms.add(emptyTable);
+            orgnisms.add(new int[n][n]);
     }
     private void randomValues(){
         Random rand =new Random();
@@ -52,17 +47,16 @@ public class Organisms {
             mPoints.clear();
             while (mPoints.size() != m)                        //losowanie dopóki zbior sie nie zapelni
             {
-                randomX = rand.nextInt(n);                  // losowanie polozenia 1
+                randomX = rand.nextInt(n);                  // losowanie polozenia do n
                 randomY = rand.nextInt(n);
                 mPoints.add(new Point(randomX, randomY));
             }
-            listMPoints.add(mPoints);                          // dodanie nowego wektora bitowego do listy
-            for(Point p : mPoints)                            //dodanie 1 do tablic kolejno z zbioru
-            {
-                table[p.x][p.y]=1;
-            }
-        }
+            listMPoints.add(mPoints);                          // dodanie nowego wektora pktów do listy
 
+            for(Point p : mPoints)                            //dodanie 1 do tablic kolejno z zbioru
+               // orgnisms.get(i)[p.x][p.y]=1;              //opcja dla typowego fora
+                table[p.x][p.y]=1;
+        }
     }
 
     //z tablicy wpisuje do listy punkty ktorych wartosc jest rowna 1
@@ -83,7 +77,7 @@ public class Organisms {
     }
 
     //na podstawie listy zawierajacej jedynki tworzy listy spojnych czesci organizmu
-    public static void grupowanieCzesci(ArrayList<Point> listaJedynek, ArrayList<Point> cz)
+    public void grupowanieCzesci(ArrayList<Point> listaJedynek, ArrayList<Point> cz)
     {
         //pobieram pierwszy element
         Point pktPocz = listaJedynek.get(0);
@@ -109,7 +103,7 @@ public class Organisms {
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
     //za srodek czyli os odniesienia przyjmuje srodek tablicy
-    public static double srodekCiezkosci (int[][]envi, int mm)
+    public double srodekCiezkosci (int[][]envi, int mm)
     {
         double mkr=0;
         double os = (double)(envi.length+1)/2;
@@ -261,6 +255,17 @@ public class Organisms {
         }
         return ListaPunktow;
     }
-
+    public void print_deb()
+    {
+        for(int[][] o : orgnisms) {
+            for (int[] ii : o)
+            {
+                for (int i : ii)
+                    System.out.print(i);
+                System.out.println();
+            }
+            System.out.println("\n");
+        }
+    }
 
 }
