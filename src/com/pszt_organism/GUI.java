@@ -136,6 +136,7 @@ public class GUI extends JPanel{
                // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
             Organisms org = new Organisms(getN(),getM(),getMi());
             org.print_deb();
+            org.allAcions();
 
 
                // System.out.println(jt.getColumnCount());

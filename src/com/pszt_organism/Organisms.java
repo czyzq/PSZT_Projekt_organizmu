@@ -38,6 +38,16 @@ public class Organisms {
 
     public void allAcions()
     {
+        int liczbaCzesci;
+        double momentBez;
+        for(int i=0;i<orgnisms.size();i++)
+        {
+            liczbaCzesci=grupowanieCzesci(selectOne(orgnisms.get(i)));
+            momentBez=momBezwl(orgnisms.get(i), srodekCiezkosci(orgnisms.get(i),m));
+            System.out.println("f przyst: "+ fPrzyst(momentBez,liczbaCzesci));
+
+        }
+
     }
     private void newEmptyArrays(){
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
@@ -66,8 +76,9 @@ public class Organisms {
     }
 
     //z tablicy wpisuje do listy punkty ktorych wartosc jest rowna 1
-    public void  selectOne(int[][]envi, ArrayList<Point> list)
+    public ArrayList<Point>  selectOne(int[][]envi)
     {
+        ArrayList<Point> list = new ArrayList<>();
         for (int i=0; i<envi.length;i++)
         {
             //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
@@ -80,19 +91,12 @@ public class Organisms {
                 }
             }
         }
+        return list;
     }
 
-    private ArrayList<Point> haszToList(HashSet<Point> hs_temp)
-    {
-        ArrayList<Point> al_temp= new ArrayList<>();
-        for (Point p: hs_temp)
-        {
-            al_temp.add(p);
-        }
-        return al_temp;
-    }
+
     //na podstawie listy zawierajacej jedynki tworzy listy spojnych czesci organizmu
-    public static ArrayList<ArrayList<Point>> grupowanieCzesci(ArrayList<Point> listaOne)
+    private  int grupowanieCzesci(ArrayList<Point> listaOne)
     {
 
         ArrayList<ArrayList<Point>> listaCzesci =new ArrayList<ArrayList<Point>>();
@@ -120,13 +124,13 @@ public class Organisms {
                     }
                 }
             }
-            System.out.print("\n Czesc "+iter+" : [");
+           /* System.out.print("\n Czesc "+iter+" : [");
             czesc.stream().forEach((p)-> System.out.print("[" + p.x +"," + p.y + "]"));
             System.out.print("] ");
             listaCzesci.add(czesc);
-            iter++;
+            iter++;*/
         }
-        return listaCzesci;
+        return listaCzesci.size();
     }
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
@@ -170,9 +174,9 @@ public class Organisms {
     }
 
     //funkcja przystosowania to moment bezwladnosci dzielony przez liczbe spojnych czesi organizmu
-    public static double fPrzyst(double Mbezwl, ArrayList<ArrayList<Point>> list)
+    public static double fPrzyst(double Mbezwl, int iloscCzesci)
     {
-        double f = Mbezwl/list.size();
+        double f = Mbezwl/iloscCzesci;
         return f;
     }
     //
