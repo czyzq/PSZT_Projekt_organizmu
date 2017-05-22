@@ -9,6 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class MiPlusLambda {
 
+
+
     private ArrayList <int[]> listaPopulacjaMi = new ArrayList<>();
     private ArrayList <int[]> listaTymczasowaLambda = new ArrayList<>();
     private int max ;
@@ -24,6 +26,14 @@ public class MiPlusLambda {
         mi=mi_tmp;
         lambda=lambda_tmp;
         max = 2*potegaDwojki*m-1;
+    }
+
+    public ArrayList<int[]> getListaPopulacjaMi() {
+        return listaPopulacjaMi;
+    }
+
+    public void setListaPopulacjaMi(ArrayList<int[]> listaPopulacjaMi) {
+        this.listaPopulacjaMi = listaPopulacjaMi;
     }
 
     public int[]mutacja(int[] Wektor, int min, int max)
