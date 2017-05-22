@@ -115,31 +115,29 @@ public class MiPlusLambda {
         return Wektory;
     }
 
-    public ArrayList<int[]> losujLambda(ArrayList <int[]> listaMi, int iloscLambda)
+    public ArrayList<int[]> losujLambda()
     {
         ArrayList<int[]> listaLambda = new ArrayList<>();
         //z listy populacji mi losowanych lambda osobnikow do rozmnozenia
-        for(int i=0; i<iloscLambda; i++)
+        for(int i=0; i<lambda; i++)
         {
-            int rnd = ThreadLocalRandom.current().nextInt(0, listaMi.size());
-            listaLambda.add(listaMi.get(rnd));
+            int rnd = ThreadLocalRandom.current().nextInt(0, listaPopulacjaMi.size());
+            listaLambda.add(listaPopulacjaMi.get(rnd));
         }
         return listaLambda;
     }
 
-    public  ArrayList<int[]> potomstwoR(ArrayList <int[]> listaLambda)
+    public  void dodajPotomstwoR(ArrayList <int[]> listaLambda)
     {
-        ArrayList<int[]> listaPotomstwa = new ArrayList<>();
-
         int i=0;
         while(i!=listaLambda.size())
         {
             //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
-            listaPotomstwa.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(0),0,max));
-            listaPotomstwa.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(1),0,max));
+            listaPopulacjaMi.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(0),0,max));
+            listaPopulacjaMi.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(1),0,max));
             i++;
         }
-        return listaPotomstwa;
+
     }
 
     //mam nadzieje ze dziala xd
