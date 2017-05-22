@@ -92,29 +92,41 @@ public class Organisms {
         return al_temp;
     }
     //na podstawie listy zawierajacej jedynki tworzy listy spojnych czesci organizmu
-    private void grupowanieCzesci(ArrayList<Point> listaJedynek)
+    public static ArrayList<ArrayList<Point>> grupowanieCzesci(ArrayList<Point> listaOne)
     {
-        ArrayList<Point> cz = new ArrayList<>();
-        //pobieram pierwszy element
-        Point pktPocz = listaJedynek.get(0); //teraz tak na prawde liczba elementow roznych od zera 18.05
-        cz.add(pktPocz);
-        listaJedynek.remove(0);
 
-        for(int t=0; t<cz.size(); t++ )
+        ArrayList<ArrayList<Point>> listaCzesci =new ArrayList<ArrayList<Point>>();
+        int iter=1;
+        while(!listaOne.isEmpty())
         {
-            Point p1=cz.get(t);
-            for(int ii=0; ii<listaJedynek.size(); ii++)
+            ArrayList<Point> czesc =new ArrayList<Point>();
+            //pobieram pierwszy element
+            Point pktPocz = listaOne.get(0);
+            czesc.add(pktPocz);
+            listaOne.remove(0);
+
+            for(int t=0; t<czesc.size(); t++ )
             {
-                Point p2=listaJedynek.get(ii);
-                //sprawdza czy kolejne elementy z listy sa w sasiedztwie pierwszego wzietego
-                //jezeli sa t dopisuje ten punkt do org1 i usuwa z listy
-                if( (Math.sqrt(Math.pow((p2.x-p1.x),2) + Math.pow((p2.y-p1.y),2))) <2 )
+                Point p1=czesc.get(t);
+                for(int ii=0; ii<listaOne.size(); ii++)
                 {
-                    cz.add(p2);
-                    listaJedynek.remove(ii);
+                    Point p2=listaOne.get(ii);
+                    //sprawdza czy kolejne elementy z listy sa w sasiedztwie pierwszego wzietego
+                    //jezeli sa t dopisuje ten punkt do org1 i usuwa z listy
+                    if( (Math.sqrt(Math.pow((p2.x-p1.x),2) + Math.pow((p2.y-p1.y),2))) <2 )
+                    {
+                        czesc.add(p2);
+                        listaOne.remove(ii);
+                    }
                 }
             }
+            System.out.print("\n Czesc "+iter+" : [");
+            czesc.stream().forEach((p)-> System.out.print("[" + p.x +"," + p.y + "]"));
+            System.out.print("] ");
+            listaCzesci.add(czesc);
+            iter++;
         }
+        return listaCzesci;
     }
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
