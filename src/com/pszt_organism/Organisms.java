@@ -78,7 +78,7 @@ public class Organisms {
 
             for(Point p : mPoints)                            //dodanie 1 do tablic kolejno z zbioru
                // orgnisms.get(i)[p.x][p.y]=1;              //opcja dla typowego fora
-                table[p.x][p.y]=1;
+                table[p.x][p.y]+=1;
         }
     }
 
@@ -323,6 +323,26 @@ public class Organisms {
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
+    }
+    public void listToMap(List<int[]>list_temp)
+    {
+        int liczbaCzesci;
+        double momentBez;
+
+        orgnisms.clear(); // czysczenie listy organizmow
+        for (int i =0; i<list_temp.size();i++)
+        {
+            orgnisms.add(new int[n][n]);// tworzenie psutej tablicy
+            List<Point> listPoint_temp= wektorNaPolozenie(list_temp.get(i), (int) (Math.log(n)/Math.log(2))); // stworzenie listy pkt z wektora bitowego
+            for(Point p : listPoint_temp)
+            {
+                orgnisms.get(i)[p.x][p.y]+=1; // dodanie wartosci do przedchwilo stworzonego organizmu
+            }
+            liczbaCzesci=grupowanieCzesci(selectOne(orgnisms.get(i))); // count part in organism
+            momentBez=momBezwl(orgnisms.get(i), srodekCiezkosci(orgnisms.get(i),m));// count moment of inertia
+            mapVectFunc.put(polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)),fPrzyst(momentBez,liczbaCzesci));
+        }
+
     }
 
 
