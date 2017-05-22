@@ -1,12 +1,10 @@
 package com.pszt_organism;
 
-import java.awt.*;
-import java.util.HashSet;
+import java.util.*;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.lang.System;
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by konrad on 14.05.2017.
@@ -20,15 +18,21 @@ public class Organisms {
     private List<HashSet<Point>> listMPoints; // moze nazwac to genotyp?
     private int n,m,mi;
     private List<int[][]> orgnisms;
+    private List<int[]> listBitVectors;
+    private Map<int[],Double> mapVectFunc;
 
-    public Organisms(int n_tmp,int m_tmp,int mi_tmp){
 
 
-        n=n_tmp;
+    public Organisms(int n_tmp, int m_tmp, int mi_tmp){
+
+
+        n= (int) Math.pow(2,n_tmp);
         m=m_tmp;
         mi=mi_tmp;
         listMPoints=new ArrayList<>();
+        mapVectFunc = new LinkedHashMap<>();
         orgnisms= new ArrayList<>();
+        listBitVectors = new ArrayList<>();
         newEmptyArrays();
         randomValues();
 
@@ -36,7 +40,8 @@ public class Organisms {
 
     }
 
-    public void allAcions()
+
+    public void init()
     {
         int liczbaCzesci;
         double momentBez;
@@ -45,9 +50,11 @@ public class Organisms {
             liczbaCzesci=grupowanieCzesci(selectOne(orgnisms.get(i)));
             momentBez=momBezwl(orgnisms.get(i), srodekCiezkosci(orgnisms.get(i),m));
             System.out.println("f przyst: "+ fPrzyst(momentBez,liczbaCzesci));
+            listBitVectors.add( polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)));
+          //  mapVectFunc.put(polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)),fPrzyst(momentBez,liczbaCzesci));
 
         }
-
+        System.out.println("posrotwana mapa" + sortByValue(mapVectFunc).size());
     }
     private void newEmptyArrays(){
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
@@ -76,7 +83,7 @@ public class Organisms {
     }
 
     //z tablicy wpisuje do listy punkty ktorych wartosc jest rowna 1
-    public ArrayList<Point>  selectOne(int[][]envi)
+    private ArrayList<Point>  selectOne(int[][]envi)
     {
         ArrayList<Point> list = new ArrayList<>();
         for (int i=0; i<envi.length;i++)
@@ -126,16 +133,16 @@ public class Organisms {
             }
            /* System.out.print("\n Czesc "+iter+" : [");
             czesc.stream().forEach((p)-> System.out.print("[" + p.x +"," + p.y + "]"));
-            System.out.print("] ");
+            System.out.print("] ");*/
             listaCzesci.add(czesc);
-            iter++;*/
+            iter++;
         }
         return listaCzesci.size();
     }
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
     //za srodek czyli os odniesienia przyjmuje srodek tablicy
-    public double srodekCiezkosci (int[][]envi, int mm)
+    private double srodekCiezkosci (int[][]envi, int mm)
     {
         double mkr=0;
         double os = (double)(envi.length+1)/2;
@@ -154,7 +161,7 @@ public class Organisms {
     }
 
     // oblicza moment bezwladnosci liczony wzgledem srodka ciezkosi
-    public static double momBezwl(int[][]envi, double sr)
+    private double momBezwl(int[][]envi, double sr)
     {
         double moment=0;
         // sr to srodek ciezkosci rowny mkr/mm
@@ -174,7 +181,7 @@ public class Organisms {
     }
 
     //funkcja przystosowania to moment bezwladnosci dzielony przez liczbe spojnych czesi organizmu
-    public static double fPrzyst(double Mbezwl, int iloscCzesci)
+    private double fPrzyst(double Mbezwl, int iloscCzesci)
     {
         double f = Mbezwl/iloscCzesci;
         return f;
@@ -184,7 +191,7 @@ public class Organisms {
     //dec na bin
     //liczba 20 np bedzie w tablicy wpisana jako 00101,  nalezy czytac od konca , potem jednak latwiej zamieniac taka konwencje na dec
     //wystarczy   podniesc 2 do indeksu tab jezeli jesto to 1 i zsumowac np : 0+0+2^2+0+2^4=20 :)
-    public static int[]  decToBin(int liczbaDec, int potegaDwojki)
+    public  int[]  decToBin(int liczbaDec, int potegaDwojki)
     {
         int i=0;
         int []tab =  new int [potegaDwojki];
@@ -201,7 +208,7 @@ public class Organisms {
     }
 
     //binarne na decymalne
-    public static int binToDec(int[] tablica)
+    public int binToDec(int[] tablica)
     {
         int dec=0;
         for (int ind=0; ind<tablica.length; ind++)
@@ -218,7 +225,7 @@ public class Organisms {
     }
 
     //zamienianie polozenia na wektor bitowy
-    public static int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki, int[][]envi)
+    private int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki, int[][]envi)
     {
         int [] tab = new int [mm*potegaDwojki*2];
         int [] tabX =new int [potegaDwojki];
@@ -234,12 +241,12 @@ public class Organisms {
                 //dla spr
                 //System.out.print( "\n wspolrzedna x punktu "+in+" : " +tabX[2]+tabX[1]+tabX[0]);
                 java.lang.System.arraycopy(tabX,0,tab,index,potegaDwojki); //tablice tabX od indeksu 0 kopiuje do tablicy tab od indeksu index  , kopiuje potegaDwojki elementow
-                index+=3;
+                index+=potegaDwojki;
                 tabY= decToBin(pkt.y, potegaDwojki);
                 // dla spr
                 //System.out.print( "\n wspolrzedna y punktu "+in+" : " +tabY[2]+tabY[1]+tabY[0]);
                 java.lang.System.arraycopy(tabY,0,tab,index,potegaDwojki);  // jak pozbyc sie przodu, bo import nie dziala
-                index+=3;
+                index+=potegaDwojki;
             }
 
         }
@@ -253,7 +260,7 @@ public class Organisms {
         return  tab;
     }
 
-    public static ArrayList<Point> wektorNaPolozenie(int[] WektorBitow, int PotegaDwojki)
+    private  ArrayList<Point> wektorNaPolozenie(int[] WektorBitow, int PotegaDwojki)
     {
         ArrayList<Point> ListaPunktow = new ArrayList<>();
         int index =0;
@@ -303,5 +310,20 @@ public class Organisms {
             System.out.println("\n");
         }
     }
+    public List<int[]> getListBitVectors() {
+        return listBitVectors;
+    }
+    private  <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+        return map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+    }
+
 
 }

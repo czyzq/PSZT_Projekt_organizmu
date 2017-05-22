@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.HashSet;
 
 import static java.lang.Integer.parseInt;
 
@@ -129,14 +128,23 @@ public class GUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                int n_temp =parseInt(String.valueOf(paramN.getSelectedItem()));
-
-                modelMethods(n_temp);
+                modelMethods((int) Math.pow(2,n_temp));
                 jt.setModel(model); // te metody sa ze sobą powiązane
+
 
                // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
             Organisms org = new Organisms(getN(),getM(),getMi());
             org.print_deb();
-            org.allAcions();
+            org.init();
+            /*
+            While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
+            {
+            ag(org.getListBitVectors); // np 100
+            org.setListBitVectors(ag.getListBitVectorWithLambda);
+            ag.setMap(org.getMapVectFunc);
+
+            }
+             */
 
 
                // System.out.println(jt.getColumnCount());
