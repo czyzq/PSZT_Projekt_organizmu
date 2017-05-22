@@ -140,8 +140,9 @@ public class MiPlusLambda {
 
     }
 
+
     //mam nadzieje ze dziala xd
-    public ArrayList<int[]> miZrodzicowIpotomstwa(Map<int[],Double> mapVectFunc_tmp, int mi)
+    public ArrayList<int[]> miZrodzicowIpotomstwa(Map<int[],Double> mapVectFunc_tmp)
     {
         ArrayList<int[]> listaMi = new ArrayList<>();
         ArrayList<int[]> klucz_t = new ArrayList<>(mapVectFunc_tmp.keySet());

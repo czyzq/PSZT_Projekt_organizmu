@@ -1,5 +1,6 @@
 package com.pszt_organism;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.awt.Point;
 import java.lang.System;
@@ -18,7 +19,10 @@ public class Organisms {
     private List<HashSet<Point>> listMPoints; // moze nazwac to genotyp?
     private int n,m,mi;
     private List<int[][]> orgnisms;
-    private List<int[]> listBitVectors;
+    private ArrayList<int[]> listBitVectors;
+
+
+
     private Map<int[],Double> mapVectFunc;
 
 
@@ -307,10 +311,10 @@ public class Organisms {
             System.out.println("\n");
         }
     }
-    public List<int[]> getListBitVectors() {
+    public ArrayList<int[]> getListBitVectors() {
         return listBitVectors;
     }
-    private  <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+    public  <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
         return map.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
@@ -340,6 +344,13 @@ public class Organisms {
             mapVectFunc.put(polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)),fPrzyst(momentBez,liczbaCzesci));
         }
 
+    }
+    public Map<int[], Double> getMapVectFunc() {
+        return mapVectFunc;
+    }
+
+    public void setMapVectFunc(Map<int[], Double> mapVectFunc) {
+        this.mapVectFunc = mapVectFunc;
     }
 
 

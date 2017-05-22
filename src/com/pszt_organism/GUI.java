@@ -25,7 +25,7 @@ public class GUI extends JPanel{
     private  String[] algoritmList = {" ","λ+ μ","λ, μ"};
     private String[] nList ={"2","3","4","5"};
     private String[] miList={"2","10","20","50","100"};
-    private String[] lambdaList={"5","10"};
+    private String[] lambdaList={"4","6","10"};
     private Object[][] tableData;
     private String[] colNames;
     private TableModel model;
@@ -137,7 +137,18 @@ public class GUI extends JPanel{
             org.print_deb();
             org.init();
             MiPlusLambda ag = new MiPlusLambda(getN(), getM(), getMi(), getLambda());
+
+            //testy
+                ag.setListaPopulacjaMi(org.getListBitVectors());
+                for(int i=0;i<3;i++)
+                {
+                ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
+                org.listToMap(ag.getListaPopulacjaMi());
+                ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
+                }
+                org.print_deb();
             /*
+
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
             {
             ag(org.getListBitVectors); // np 100
