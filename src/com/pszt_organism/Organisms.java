@@ -32,6 +32,12 @@ public class Organisms {
         newEmptyArrays();
         randomValues();
 
+
+
+    }
+
+    public void allAcions()
+    {
     }
     private void newEmptyArrays(){
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
@@ -60,7 +66,7 @@ public class Organisms {
     }
 
     //z tablicy wpisuje do listy punkty ktorych wartosc jest rowna 1
-    public static   void  selectOne(int[][]envi, ArrayList<Point> list)
+    public void  selectOne(int[][]envi, ArrayList<Point> list)
     {
         for (int i=0; i<envi.length;i++)
         {
@@ -76,9 +82,19 @@ public class Organisms {
         }
     }
 
-    //na podstawie listy zawierajacej jedynki tworzy listy spojnych czesci organizmu
-    public void grupowanieCzesci(ArrayList<Point> listaJedynek, ArrayList<Point> cz)
+    private ArrayList<Point> haszToList(HashSet<Point> hs_temp)
     {
+        ArrayList<Point> al_temp= new ArrayList<>();
+        for (Point p: hs_temp)
+        {
+            al_temp.add(p);
+        }
+        return al_temp;
+    }
+    //na podstawie listy zawierajacej jedynki tworzy listy spojnych czesci organizmu
+    private void grupowanieCzesci(ArrayList<Point> listaJedynek)
+    {
+        ArrayList<Point> cz = new ArrayList<>();
         //pobieram pierwszy element
         Point pktPocz = listaJedynek.get(0); //teraz tak na prawde liczba elementow roznych od zera 18.05
         cz.add(pktPocz);
