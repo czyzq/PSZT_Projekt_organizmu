@@ -25,7 +25,6 @@ public class Organisms {
 
     public Organisms(int n_tmp, int m_tmp, int mi_tmp){
 
-
         n= (int) Math.pow(2,n_tmp);
         m=m_tmp;
         mi=mi_tmp;
@@ -35,8 +34,6 @@ public class Organisms {
         listBitVectors = new ArrayList<>();
         newEmptyArrays();
         randomValues();
-
-
 
     }
 
@@ -228,8 +225,8 @@ public class Organisms {
     private int[] polozenieNaWektor(ArrayList<Point> listaJedynek, int mm, int potegaDwojki, int[][]envi)
     {
         int [] tab = new int [mm*potegaDwojki*2];
-        int [] tabX =new int [potegaDwojki];
-        int [] tabY =new int [potegaDwojki];
+        int [] tabX = new int [potegaDwojki];
+        int [] tabY = new int [potegaDwojki];
         int index =0;
 
         for(int in=0; in<listaJedynek.size();in++)
@@ -248,7 +245,6 @@ public class Organisms {
                 java.lang.System.arraycopy(tabY,0,tab,index,potegaDwojki);  // jak pozbyc sie przodu, bo import nie dziala
                 index+=potegaDwojki;
             }
-
         }
 
         //to wypisuje pkt0.x, pkt0.y, pkt1.x, pkt1.y itd (ale w odwrotniej kolejnosci tzn, jezeli np x=1, y=3 to wypisze: 100, 110)
@@ -298,6 +294,7 @@ public class Organisms {
         }
         return ListaPunktow;
     }
+
     public void print_deb()
     {
         for(int[][] o : orgnisms) {
@@ -327,3 +324,5 @@ public class Organisms {
 
 
 }
+
+

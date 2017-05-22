@@ -136,6 +136,7 @@ public class GUI extends JPanel{
             Organisms org = new Organisms(getN(),getM(),getMi());
             org.print_deb();
             org.init();
+            MiPlusLambda ag = new MiPlusLambda(getN(), getM(), getMi(), getLambda());
             /*
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
             {

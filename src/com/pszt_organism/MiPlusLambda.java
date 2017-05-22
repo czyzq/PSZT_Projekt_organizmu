@@ -1,5 +1,7 @@
 package com.pszt_organism;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -7,8 +9,24 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class MiPlusLambda {
 
+    private ArrayList <int[]> listaPopulacjaMi = new ArrayList<>();
+    private ArrayList <int[]> listaTymczasowaLambda = new ArrayList<>();
+    private int max ;
+    private int lambda;
+    private int potegaDwojki;
+    private int m;
+    private int mi;
 
-    public static int[]mutacja(int[] Wektor, int min, int max)
+    public MiPlusLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp){
+
+        potegaDwojki=n_tmp;
+        m=m_tmp;
+        mi=mi_tmp;
+        lambda=lambda_tmp;
+        max = 2*potegaDwojki*m-1;
+    }
+
+    public int[]mutacja(int[] Wektor, int min, int max)
     {
         //tak wlasciwie min to zawsze 0 a max o bedzie 2*potegaDwojki*m-1
 
@@ -43,7 +61,7 @@ public class MiPlusLambda {
         return WektorZmutowany;
     }
 
-    public static ArrayList<int[]> krzyzowanie_jednopunktowe (int[] Wektor1, int[] Wektor2){
+    public ArrayList<int[]> krzyzowanie_jednopunktowe (int[] Wektor1, int[] Wektor2){
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
@@ -60,7 +78,7 @@ public class MiPlusLambda {
         return Wektory;
     }
 
-    public static ArrayList<int[]> krzyzowanie_dwupunktowe (int[] Wektor1, int[] Wektor2){
+    public  ArrayList<int[]> krzyzowanie_dwupunktowe (int[] Wektor1, int[] Wektor2){
         //krzyzowanie z 2 locusami, wybieranymi losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         //dwa rozne locusy
@@ -87,4 +105,44 @@ public class MiPlusLambda {
         return Wektory;
     }
 
+    public ArrayList<int[]> losujLambda(ArrayList <int[]> listaMi, int iloscLambda)
+    {
+        ArrayList<int[]> listaLambda = new ArrayList<>();
+        //z listy populacji mi losowanych lambda osobnikow do rozmnozenia
+        for(int i=0; i<iloscLambda; i++)
+        {
+            int rnd = ThreadLocalRandom.current().nextInt(0, listaMi.size());
+            listaLambda.add(listaMi.get(rnd));
+        }
+        return listaLambda;
+    }
+
+    public  ArrayList<int[]> potomstwoR(ArrayList <int[]> listaLambda)
+    {
+        ArrayList<int[]> listaPotomstwa = new ArrayList<>();
+
+        int i=0;
+        while(i!=listaLambda.size())
+        {
+            //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
+            listaPotomstwa.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(0),0,max));
+            listaPotomstwa.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(1),0,max));
+            i++;
+        }
+        return listaPotomstwa;
+    }
+
+    //mam nadzieje ze dziala xd
+    public ArrayList<int[]> miZrodzicowIpotomstwa(Map<int[],Double> mapVectFunc_tmp, int mi)
+    {
+        ArrayList<int[]> listaMi = new ArrayList<>();
+        ArrayList<int[]> klucz_t = new ArrayList<>(mapVectFunc_tmp.keySet());
+
+        for(int i=0; i<mi; i++)
+        {
+            listaMi.add(klucz_t.get(i));
+        }
+
+        return listaMi;
+    }
 }
