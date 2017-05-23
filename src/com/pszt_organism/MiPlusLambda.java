@@ -75,14 +75,14 @@ public class MiPlusLambda {
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
-
-        for (int i = locus + 1; i <= Wektor1.length; i++)
-        if(Wektor1[i]!=Wektor2[i])
-        {
-            int[] Temp = Wektor1;
-            Wektor1[i] = Wektor2[i];
-            Wektor2[i] = Temp[i];
-        }
+        System.out.print("!!LOCUS" +locus);
+        int[] Temp = (int[])Wektor1.clone();
+        for (int i = locus + 1; i <= Wektor1.length-1; i++)
+            if(Wektor1[i]!=Wektor2[i])
+            {
+                Wektor1[i] = Wektor2[i];
+                Wektor2[i] = Temp[i];
+            }
         Wektory.add(Wektor1);
         Wektory.add(Wektor2);
         return Wektory;
@@ -102,11 +102,10 @@ public class MiPlusLambda {
             locus1=locus2;
             locus2=temp;
         }
-
+        int[] Temp = (int[])Wektor1.clone();
         for (int i = locus1+1; i <= locus2; i++)
             if(Wektor1[i]!=Wektor2[i])
             {
-                int[] Temp = Wektor1;
                 Wektor1[i] = Wektor2[i];
                 Wektor2[i] = Temp[i];
             }
@@ -130,7 +129,7 @@ public class MiPlusLambda {
     public  void dodajPotomstwoR(ArrayList <int[]> listaLambda)
     {
         int i=0;
-        while(i!=listaLambda.size())
+        while(i!=listaLambda.size()-1)
         {
             //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
             listaPopulacjaMi.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(0),0,max));
