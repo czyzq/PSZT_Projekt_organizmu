@@ -139,16 +139,17 @@ public class GUI extends JPanel{
             MiPlusLambda ag = new MiPlusLambda(getN(), getM(), getMi(), getLambda());
 
             //testy
-                ag.setListaPopulacjaMi(org.getListBitVectors());
-                for(int i=0;i<100;i++)
+               ag.setListaPopulacjaMi(org.getListBitVectors());
+                while(ag.stop(org.getBestValueMap())!=10000)
                 {
                 ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
                 org.listToMap(ag.getListaPopulacjaMi());
                 ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
+                System.out.println("\n oto pierwsza wartosc "+ org.getBestValueMap());
                 }
                 org.print_deb();
-            /*
 
+            /*
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
             {
             ag(org.getListBitVectors); // np 100

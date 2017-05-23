@@ -1,6 +1,7 @@
 package com.pszt_organism;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +19,8 @@ public class MiPlusLambda {
     private int potegaDwojki;
     private int m;
     private int mi;
+    private double theChosenOne;
+    private int iterationStop;
 
     public MiPlusLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp){
 
@@ -26,6 +29,7 @@ public class MiPlusLambda {
         mi=mi_tmp;
         lambda=lambda_tmp;
         max = 2*potegaDwojki*m-1;
+        theChosenOne=0;
     }
 
     public ArrayList<int[]> getListaPopulacjaMi() {
@@ -75,7 +79,7 @@ public class MiPlusLambda {
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
-        System.out.print("\n !!LOCUS" +locus);
+        //System.out.print("\n !!LOCUS" +locus);
         int[] Temp = (int[])Wektor1.clone();
         for (int i = locus + 1; i <= Wektor1.length-1; i++)
             if(Wektor1[i]!=Wektor2[i])
@@ -152,5 +156,17 @@ public class MiPlusLambda {
         }
 
         return listaMi;
+    }
+    public int stop(double firstValueFromMap)
+    {
+        if(theChosenOne<firstValueFromMap)
+        {
+            theChosenOne=firstValueFromMap;
+            iterationStop=0;
+        }
+        else
+            iterationStop++;
+
+        return iterationStop;
     }
 }

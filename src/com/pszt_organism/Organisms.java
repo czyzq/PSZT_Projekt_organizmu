@@ -38,6 +38,8 @@ public class Organisms {
         listBitVectors = new ArrayList<>();
         newEmptyArrays();
         randomValues();
+        int[] Table_init ={0,0,0};
+        mapVectFunc.put(Table_init,0.0);
 
     }
 
@@ -351,6 +353,25 @@ public class Organisms {
 
     public void setMapVectFunc(Map<int[], Double> mapVectFunc) {
         this.mapVectFunc = mapVectFunc;
+    }
+
+    public double getBestValueMap()
+    {
+        /*int[][] temp = new int[n][n];
+        List<Point> listPoint_temp= wektorNaPolozenie((int[])sortByValue(mapVectFunc).keySet().toArray()[0], (int) (Math.log(n)/Math.log(2))); // stworzenie listy pkt z wektora bitowego
+        for(Point p : listPoint_temp)
+        {
+            temp[p.x][p.y]+=1; // dodanie wartosci do przedchwilo stworzonego organizmu
+        }
+
+        for (int[] ii : temp)
+        {
+            for (int i : ii)
+                System.out.print(i);
+            System.out.println();
+        }
+        System.out.println("\n");*/
+        return (double)(sortByValue(mapVectFunc)).values().toArray()[0];
     }
 
 
