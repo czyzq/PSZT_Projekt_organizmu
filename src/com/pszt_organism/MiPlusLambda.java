@@ -164,8 +164,10 @@ public class MiPlusLambda {
             theChosenOne=firstValueFromMap;
             iterationStop=0;
         }
-        else
+        else {
             iterationStop++;
+            System.out.println(iterationStop);
+        }
 
         return iterationStop;
     }

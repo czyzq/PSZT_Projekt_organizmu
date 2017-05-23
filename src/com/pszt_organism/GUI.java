@@ -19,16 +19,18 @@ public class GUI extends JPanel{
     private JTable jt;
     private JScrollPane jsp;
     private JButton buttonStart;
-    private JLabel labelAlg,labelN, labelM, labelMi,labelLambda;
+    private JLabel labelAlg,labelN, labelM, labelMi,labelLambda,labelCrossing,labelIteration;
     private JFormattedTextField paramM;
-    private JComboBox algEvo,paramN, paramMi,paramLambda;
+    private JComboBox algEvo,paramN, paramMi,paramLambda,paramCrossing;
     private  String[] algoritmList = {" ","λ+ μ","λ, μ"};
     private String[] nList ={"2","3","4","5"};
     private String[] miList={"2","10","20","50","100"};
     private String[] lambdaList={"4","6","10"};
+    private String[] crossingList={"Jednopunktowe","Dwupunktowe"};
     private Object[][] tableData;
     private String[] colNames;
     private TableModel model;
+
 
     public GUI()
     {
@@ -36,38 +38,38 @@ public class GUI extends JPanel{
 
 
 
-        modelMethods(8);
+        modelMethods(32);
         jt = new JTable(model);
 
         setBackground(Color.white);
         //setSize(new Dimension(500,500));
        // jt = new JTable();
         jt.setBackground(Color.white);
-        jt.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        jt.setPreferredScrollableViewportSize(new Dimension(900, 300));
         jt.setFillsViewportHeight(true);
         jsp = new JScrollPane(jt);
 
 
-        jsp.setBounds(0,0,400,400);
+        jsp.setBounds(0,0,900,540);
         add(jsp);
 
         buttonStart = new JButton("Start");
-        buttonStart.setBounds(460,425,70,20);
+        buttonStart.setBounds(960,520,70,20);
         add(buttonStart);
 
         algEvo=new JComboBox(algoritmList);
         algEvo.setSelectedIndex(0);
         ((JLabel)algEvo.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
-        algEvo.setBounds(440,25,120,20);
+        algEvo.setBounds(940,25,120,20);
         add(algEvo);
 
         labelAlg = new JLabel("Algorytmy");
-        labelAlg.setBounds(440,3,120,20);
+        labelAlg.setBounds(940,3,120,20);
         labelAlg.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelAlg);
 
         labelN = new JLabel("Parametr N (2^x)");
-        labelN.setBounds(440,50,120,20);
+        labelN.setBounds(940,50,120,20);
         labelN.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelN);
 
@@ -85,42 +87,56 @@ public class GUI extends JPanel{
         paramN=new JComboBox(nList);
         paramN.setSelectedIndex(0);
         ((JLabel)paramN.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
-        paramN.setBounds(440,75,120,20);
+        paramN.setBounds(940,75,120,20);
         add(paramN);
 
         labelM = new JLabel("M");
-        labelM.setBounds(440,100,120,20);
+        labelM.setBounds(940,100,120,20);
         labelM.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelM);
 
         paramM = new JFormattedTextField(formatter);
-        paramM.setBounds(440,125,120,20);
+        paramM.setBounds(940,125,120,20);
         paramM.setHorizontalAlignment(SwingConstants.CENTER);
         paramM.setText("1");
         add(paramM);
 
         labelMi = new JLabel("μ");
-        labelMi.setBounds(440,150,120,20);
+        labelMi.setBounds(940,150,120,20);
         labelMi.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelMi);
 
         paramMi = new JComboBox(miList);
         paramMi.setSelectedIndex(0);
         ((JLabel)paramMi.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
-        paramMi.setBounds(440,175,120,20);
+        paramMi.setBounds(940,175,120,20);
         add(paramMi);
 
         labelLambda = new JLabel("Lambda");
-        labelLambda.setBounds(440,200,120,20);
+        labelLambda.setBounds(940,200,120,20);
         labelLambda.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelLambda);
 
         paramLambda = new JComboBox(lambdaList);
         paramLambda.setSelectedIndex(0);
         ((JLabel)paramLambda.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
-        paramLambda.setBounds(440,225,120,20);
+        paramLambda.setBounds(940,225,120,20);
         add(paramLambda);
 
+        labelCrossing=new JLabel("Krzyżowanie");
+        labelCrossing.setBounds(940,250,120,20);
+        labelCrossing.setHorizontalAlignment(SwingConstants.CENTER);
+        add(labelCrossing);
+
+        paramCrossing = new JComboBox(crossingList);
+        paramCrossing.setSelectedIndex(0);
+        ((JLabel)paramCrossing.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
+        paramCrossing.setBounds(940,275,120,20);
+        add(paramCrossing);
+
+        labelIteration=new JLabel("Liczba iteracji bez znalezienia lepszego osobnika: 0");
+        labelIteration.setBounds(5,540,300,20);
+        add(labelIteration);
 
 
         buttonStart.addActionListener(new ActionListener() {
@@ -140,14 +156,14 @@ public class GUI extends JPanel{
 
             //testy
                ag.setListaPopulacjaMi(org.getListBitVectors());
-                while(ag.stop(org.getBestValueMap())!=10000)
+                while(ag.stop(org.getBestValueMap())!=1000)
                 {
                 ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
                 org.listToMap(ag.getListaPopulacjaMi());
                 ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
-                System.out.println("\n oto pierwsza wartosc "+ org.getBestValueMap());
                 }
                 org.print_deb();
+                System.out.println("\n oto pierwsza wartosc "+ org.getBestValueMap());
 
             /*
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
