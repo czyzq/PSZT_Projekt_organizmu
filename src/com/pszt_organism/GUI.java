@@ -140,7 +140,7 @@ public class GUI extends JPanel{
 
             //testy
                 ag.setListaPopulacjaMi(org.getListBitVectors());
-                for(int i=0;i<3;i++)
+                for(int i=0;i<100;i++)
                 {
                 ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
                 org.listToMap(ag.getListaPopulacjaMi());

@@ -70,12 +70,12 @@ public class MiPlusLambda {
 
         return WektorZmutowany;
     }
-
+//KONIECZNIE POPRAWIC BO ZLE DZIALA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public ArrayList<int[]> krzyzowanie_jednopunktowe (int[] Wektor1, int[] Wektor2){
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
-        System.out.print("!!LOCUS" +locus);
+        //System.out.print("\n !!LOCUS" +locus);
         int[] Temp = (int[])Wektor1.clone();
         for (int i = locus + 1; i <= Wektor1.length-1; i++)
             if(Wektor1[i]!=Wektor2[i])

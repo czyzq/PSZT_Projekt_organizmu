@@ -253,9 +253,9 @@ public class Organisms {
 
         //to wypisuje pkt0.x, pkt0.y, pkt1.x, pkt1.y itd (ale w odwrotniej kolejnosci tzn, jezeli np x=1, y=3 to wypisze: 100, 110)
         //ta konwencja co w zamianie napisalam
-        System.out.print( "\n  polozenie na bity o kolei jak w tab wpisane: ");
+        /*System.out.print( "\n  polozenie na bity o kolei jak w tab wpisane: ");
         for(int j=0;j<mm*potegaDwojki*2;j++)
-            System.out.print(  +tab[j]);
+            System.out.print(  +tab[j]); */
 
         return  tab;
     }
