@@ -57,7 +57,8 @@ public class MiPlusLambda {
         prawdopodobienstwo[randomZmiana]=1;
         prawdopodobienstwo[randomZmiana2]=1;
 
-        int[]WektorZmutowany = Wektor;
+        int[]WektorZmutowany = (int[])Wektor.clone();
+
         for(int w=0; w<WektorZmutowany.length; w++)
         {
             int randomNum = ThreadLocalRandom.current().nextInt(min, max);
@@ -73,8 +74,6 @@ public class MiPlusLambda {
                     WektorZmutowany[w]=1;
             }
         }
-
-
         return WektorZmutowany;
     }
 //KONIECZNIE POPRAWIC BO ZLE DZIALA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
