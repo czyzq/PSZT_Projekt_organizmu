@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -19,10 +20,10 @@ public class GUI extends JPanel{
     private JTable jt;
     private JScrollPane jsp;
     private JButton buttonStart;
-    private JLabel labelAlg,labelN, labelM, labelMi,labelLambda,labelCrossing,labelIteration;
+    private JLabel labelAlg,labelN, labelM, labelMi,labelLambda,labelCrossing,labelIteration,labelBestValue;
     private JFormattedTextField paramM;
     private JComboBox algEvo,paramN, paramMi,paramLambda,paramCrossing;
-    private  String[] algoritmList = {" ","λ+ μ","λ, μ"};
+    private  String[] algoritmList = {"λ+ μ","λ, μ"};
     private String[] nList ={"2","3","4","5"};
     private String[] miList={"2","10","20","50","100"};
     private String[] lambdaList={"4","6","10","16"};
@@ -30,7 +31,6 @@ public class GUI extends JPanel{
     private Object[][] tableData;
     private String[] colNames;
     private TableModel model;
-
 
     public GUI()
     {
@@ -67,6 +67,8 @@ public class GUI extends JPanel{
         labelAlg.setBounds(940,3,120,20);
         labelAlg.setHorizontalAlignment(SwingConstants.CENTER);
         add(labelAlg);
+
+
 
         labelN = new JLabel("Parametr N (2^x)");
         labelN.setBounds(940,50,120,20);
@@ -137,6 +139,9 @@ public class GUI extends JPanel{
         labelIteration=new JLabel("Liczba iteracji bez znalezienia lepszego osobnika: 0");
         labelIteration.setBounds(5,540,300,20);
         add(labelIteration);
+        labelBestValue=new JLabel("Najlepsza uzyskana wartość: 0.0");
+        labelBestValue.setBounds(5,555,300,20);
+        add(labelBestValue);
 
 
         buttonStart.addActionListener(new ActionListener() {
@@ -150,21 +155,35 @@ public class GUI extends JPanel{
 
                // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
             Organisms org = new Organisms(getN(),getM(),getMi());
+            List <int[][]> organizmy=org.doGUI();
             org.print_deb();
             org.init();
-            MiPlusLambda ag = new MiPlusLambda(getN(), getM(), getMi(), getLambda());
+            int counter=0;
+            double max=0.0;
+            if(getAlgorithms()=="λ+ μ") {
+                MiPlusLambda ag = new MiPlusLambda(getN(), getM(), getMi(), getLambda(), getCrossing());
 
-            //testy
-               ag.setListaPopulacjaMi(org.getListBitVectors());
-                while(ag.stop(org.getBestValueMap())!=100)
-                {
-                ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
-                org.listToMap(ag.getListaPopulacjaMi());
-                ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
+                //testy
+                ag.setListaPopulacjaMi(org.getListBitVectors());
+                while (ag.stop(org.getBestValueMap()) != 100) {
+                    ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
+                    org.listToMap(ag.getListaPopulacjaMi());
+                    ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
+                    if(org.getBestValueMap()>max){
+                    max=org.getBestValueMap();
+                    counter++;
+                    }
+                    labelIteration.setText("Liczba iteracji bez znalezienia lepszego osobnika: " + counter);
+                    labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
+                    //print_deb(organizmy);
                 }
-                org.print_deb();
-                System.out.println("\n oto pierwsza wartosc "+ org.getBestValueMap());
+                System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
+                print_deb(organizmy);
 
+            }
+            else{
+                System.out.println("\n JESZCZE NIE GOTOWE ");
+            }
             /*
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
             {
@@ -204,7 +223,6 @@ public class GUI extends JPanel{
                 return colNames.length;
             }
 
-
             public Object getValueAt(int rowIndex, int columnIndex) {
                 return tableData[rowIndex][columnIndex];
             }
@@ -232,5 +250,22 @@ public class GUI extends JPanel{
     public int getM(){return parseInt(paramM.getText().toString());}
     public int getMi(){return parseInt(String.valueOf(paramMi.getSelectedItem()));}
     public int getLambda(){return parseInt(String.valueOf(paramLambda.getSelectedItem()));}
+    public String getCrossing() {return String.valueOf(paramCrossing.getSelectedItem());}
+    public String getAlgorithms() {return String.valueOf(algEvo.getSelectedItem());}
+
+    public void print_deb(List<int[][]> lista)
+    {
+        for(int[][] o : lista) {
+            for (int j=0; j<o.length;j++)
+            {
+                for (int i=0; i<o[j].length;i++) {
+                    model.setValueAt(o[i][j],j,i);
+                    System.out.print(o[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("\n");
+        }
+    }
 
 }

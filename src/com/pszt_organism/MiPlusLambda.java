@@ -21,9 +21,10 @@ public class MiPlusLambda {
     private int mi;
     private double theChosenOne;
     private int iterationStop;
-
-    public MiPlusLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp){
-
+    private String wyborKrzyowania;
+    public MiPlusLambda(){}
+    public MiPlusLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp,String krzyzowanie){
+        wyborKrzyowania=krzyzowanie;
         potegaDwojki=n_tmp;
         m=m_tmp;
         mi=mi_tmp;
@@ -76,7 +77,7 @@ public class MiPlusLambda {
         }
         return WektorZmutowany;
     }
-//KONIECZNIE POPRAWIC BO ZLE DZIALA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     public ArrayList<int[]> krzyzowanie_jednopunktowe (int[] Wektor1, int[] Wektor2){
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
@@ -103,13 +104,13 @@ public class MiPlusLambda {
             while(locus2==locus1) {
             locus2 = ThreadLocalRandom.current().nextInt(0, Wektor1.length - 1);
         }
+        int temp=locus1;
         if(locus1>locus2){
-            int temp=locus1;
             locus1=locus2;
             locus2=temp;
         }
         int[] Temp = (int[])Wektor1.clone();
-        for (int i = locus1+1; i <= locus2; i++)
+        for (int i = locus1+1; i <locus2; i++)
             if(Wektor1[i]!=Wektor2[i])
             {
                 Wektor1[i] = Wektor2[i];
@@ -138,8 +139,14 @@ public class MiPlusLambda {
         while(i!=listaLambda.size())
         {
             //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
-            listaPopulacjaMi.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(0),0,max));
-            listaPopulacjaMi.add( mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i),listaLambda.get(i+1)).get(1),0,max));
+            if(wyborKrzyowania=="Jednopunktowe") {
+                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(0), 0, max));
+                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(1), 0, max));
+            }
+            else{
+                listaPopulacjaMi.add(mutacja(krzyzowanie_dwupunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(0), 0, max));
+                listaPopulacjaMi.add(mutacja(krzyzowanie_dwupunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(1), 0, max));
+            }
             i+=2;
         }
 
@@ -168,7 +175,7 @@ public class MiPlusLambda {
         }
         else {
             iterationStop++;
-            System.out.println(iterationStop);
+            //System.out.println(iterationStop);
         }
 
         return iterationStop;

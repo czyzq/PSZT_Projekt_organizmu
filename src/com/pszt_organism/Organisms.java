@@ -57,7 +57,7 @@ public class Organisms {
           //  mapVectFunc.put(polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)),fPrzyst(momentBez,liczbaCzesci));
 
         }
-        System.out.println("posrotwana mapa" + sortByValue(mapVectFunc).size());
+        //System.out.println("posrotwana mapa" + sortByValue(mapVectFunc).size());
     }
     private void newEmptyArrays(){
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
@@ -222,7 +222,7 @@ public class Organisms {
             }
         }
         //sprawdzenie
-        System.out.print("\n dec: "+dec);
+        //System.out.print("\n dec: "+dec);
 
         return dec;
     }
@@ -313,6 +313,9 @@ public class Organisms {
             System.out.println("\n");
         }
     }
+
+
+
     public ArrayList<int[]> getListBitVectors() {
         return listBitVectors;
     }
@@ -354,6 +357,11 @@ public class Organisms {
     public void setMapVectFunc(Map<int[], Double> mapVectFunc) {
         this.mapVectFunc = mapVectFunc;
     }
+
+    public List<int[][]> doGUI(){
+        return orgnisms;
+    }
+
 
     public double getBestValueMap()
     {
