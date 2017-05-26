@@ -8,7 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.List;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import static java.lang.Integer.parseInt;
 
@@ -136,7 +137,7 @@ public class GUI extends JPanel{
         paramCrossing.setBounds(940,275,120,20);
         add(paramCrossing);
 
-        labelIteration=new JLabel("Liczba iteracji bez znalezienia lepszego osobnika: 0");
+        labelIteration=new JLabel("Liczba iteracji bez lepszego osobnika: 0");
         labelIteration.setBounds(5,540,300,20);
         add(labelIteration);
         labelBestValue=new JLabel("Najlepsza uzyskana wartość: 0.0");
@@ -144,14 +145,21 @@ public class GUI extends JPanel{
         add(labelBestValue);
 
 
+
+
+
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               int n_temp =parseInt(String.valueOf(paramN.getSelectedItem()));
+                int n_temp =parseInt(String.valueOf(paramN.getSelectedItem()));
                 modelMethods((int) Math.pow(2,n_temp));
                 jt.setModel(model); // te metody sa ze sobą powiązane
 
+                doWork();
+                //print_deb(organizmy);
+
+/*           wszystko przerzucone do Workera
 
                // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
             Organisms org = new Organisms(getN(),getM(),getMi());
@@ -173,17 +181,20 @@ public class GUI extends JPanel{
                     max=org.getBestValueMap();
                     counter++;
                     }
-                    labelIteration.setText("Liczba iteracji bez znalezienia lepszego osobnika: " + counter);
-                    labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
-                    //print_deb(organizmy);
+                    //labelIteration.setText("Liczba iteracji bez znalezienia lepszego osobnika: " + counter);
+                    //labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
+                    doWork(max,counter);
+                    print_deb(organizmy);
                 }
                 System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
-                print_deb(organizmy);
+                //print_deb(organizmy);
 
             }
             else{
                 System.out.println("\n JESZCZE NIE GOTOWE ");
             }
+*/
+
             /*
             While(ag.stop()==100) // 100 iteracji bez lepszego osobnia
             {
@@ -198,8 +209,25 @@ public class GUI extends JPanel{
                // System.out.println(jt.getColumnCount());
 
             }
+/*
+            private void changeJLabel(final JLabel labelIteration, final int counter, final JLabel labelBestValue) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        labelIteration.setText("Liczba iteracji bez znalezienia lepszego osobnika: " + counter);
+                        labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
+                    }
+                });
+            }
+*/
+            public void doWork() {
+
+                Worker worker = new Worker(getN(),getM(),getMi(),getLambda(),getCrossing(),getAlgorithms(),labelIteration,labelBestValue,jt);
+                worker.execute();
+            }
         });
     }
+
     public void modelMethods(int temp)
     {
         int n_temp= temp;
@@ -241,6 +269,7 @@ public class GUI extends JPanel{
         };
        // jt.setModel(model);
     }
+
     public void set1inTable( int row, int col){ // bo model to zmienna prywatna wiec trzeba metode publiczna do niej
         model.setValueAt(1,row,col);
     }
@@ -253,19 +282,10 @@ public class GUI extends JPanel{
     public String getCrossing() {return String.valueOf(paramCrossing.getSelectedItem());}
     public String getAlgorithms() {return String.valueOf(algEvo.getSelectedItem());}
 
-    public void print_deb(List<int[][]> lista)
-    {
-        for(int[][] o : lista) {
-            for (int j=0; j<o.length;j++)
-            {
-                for (int i=0; i<o[j].length;i++) {
-                    model.setValueAt(o[i][j],j,i);
-                    System.out.print(o[i][j]);
-                }
-                System.out.println();
-            }
-            System.out.println("\n");
-        }
-    }
 
 }
+
+
+
+
+
