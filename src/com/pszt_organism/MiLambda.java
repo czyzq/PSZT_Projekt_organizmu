@@ -54,7 +54,7 @@ public class MiLambda extends MiPlusLambda{
 
     public  void dodajPotomstwoR(ArrayList <int[]> listaLambda)
     {
-
+        listaPopulacjaR.clear();    //kasowanie poprzedniej populacji
         int i=0;
         while(i!=listaLambda.size())
         {
