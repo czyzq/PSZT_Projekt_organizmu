@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by konrad on 14.05.2017.
  */
 //class MiLambda dziedziczy po class MiPlusLambda, bo roznia sie tylko jednym krokiem algorytmu
+//musialem nadpisac kilka metod, bo be tego nie chcialo dzialac
 public class MiLambda extends MiPlusLambda{
 
     private ArrayList <int[]> listaPopulacjaR = new ArrayList<>();
