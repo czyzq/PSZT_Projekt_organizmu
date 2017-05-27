@@ -35,9 +35,8 @@ public class Worker extends SwingWorker<Object, Object> {
         org.init();
         int counter=0;
         double max=0.0;
-        if(Algorithms=="λ+ μ") {
-            MiPlusLambda ag = new MiPlusLambda(N,M,Mi,Lambda,Crossing);
-
+        if(Algorithms.equals("λ+ μ")) {
+            MiPlusLambda ag = new MiPlusLambda(N, M, Mi, Lambda, Crossing);
             //testy
             ag.setListaPopulacjaMi(org.getListBitVectors());
             while (ag.stop(org.getBestValueMap()) != 100) {
@@ -58,8 +57,28 @@ public class Worker extends SwingWorker<Object, Object> {
             System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
         }
         else{
-            System.out.println("\n JESZCZE NIE GOTOWE ");
+            MiLambda ag = new MiLambda(N,M,Mi,Lambda,Crossing);
+            //testy
+            ag.setListaPopulacjaMi(org.getListBitVectors());
+            while (ag.stop(org.getBestValueMap()) != 100) {
+                ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
+                org.listToMap(ag.getListaPopulacjaR());
+                ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
+                if(org.getBestValueMap()==max)
+                    counter++;
+                else
+                    counter=0;
+                if(org.getBestValueMap()>max)
+                    max=org.getBestValueMap();
+
+                labelIteration.setText("Liczba iteracji bez lepszego osobnika: " + counter);
+                labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
+                print_deb(organizmy);
+            }
+            System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
         }
+
+
         /*
         for (int index = 0; index < 100; index++) {
             int progress = Math.round(((float) index / 100f) * 10f);

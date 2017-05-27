@@ -27,7 +27,7 @@ public class GUI extends JPanel{
     private  String[] algoritmList = {"λ+ μ","λ, μ"};
     private String[] nList ={"2","3","4","5"};
     private String[] miList={"2","10","20","50","100"};
-    private String[] lambdaList={"4","6","10","16"};
+    private String[] lambdaList={"4","6","10","16","100"};
     private String[] crossingList={"Jednopunktowe","Dwupunktowe"};
     private Object[][] tableData;
     private String[] colNames;

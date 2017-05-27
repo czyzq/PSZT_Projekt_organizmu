@@ -21,10 +21,10 @@ public class MiPlusLambda {
     private int mi;
     private double theChosenOne;
     private int iterationStop;
-    private String wyborKrzyowania;
+    private String wyborKrzyzowania;
     public MiPlusLambda(){}
     public MiPlusLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp,String krzyzowanie){
-        wyborKrzyowania=krzyzowanie;
+        wyborKrzyzowania=krzyzowanie;
         potegaDwojki=n_tmp;
         m=m_tmp;
         mi=mi_tmp;
@@ -139,7 +139,7 @@ public class MiPlusLambda {
         while(i!=listaLambda.size())
         {
             //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
-            if(wyborKrzyowania=="Jednopunktowe") {
+            if(wyborKrzyzowania.equals("Jednopunktowe")) {
                 listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(0), 0, max));
                 listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(1), 0, max));
             }
