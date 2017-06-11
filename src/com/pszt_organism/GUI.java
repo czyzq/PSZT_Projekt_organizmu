@@ -43,8 +43,7 @@ public class GUI extends JPanel{
         jt = new JTable(model);
 
         setBackground(Color.white);
-        //setSize(new Dimension(500,500));
-       // jt = new JTable();
+
         jt.setBackground(Color.white);
         jt.setPreferredScrollableViewportSize(new Dimension(900, 300));
         jt.setFillsViewportHeight(true);
@@ -83,10 +82,7 @@ public class GUI extends JPanel{
         formatter.setMinimum(0);
         formatter.setMaximum(Integer.MAX_VALUE);
         formatter.setAllowsInvalid(false);
-        //paramN = new JFormattedTextField(formatter);
-        //
-        //paramN.setHorizontalAlignment(SwingConstants.CENTER);
-        //add(paramN);
+
         paramN=new JComboBox(nList);
         paramN.setSelectedIndex(0);
         ((JLabel)paramN.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); // zcentrowanie stringa
@@ -158,8 +154,6 @@ public class GUI extends JPanel{
 
                 doWork();
 
-//           wszystko przerzucone do Workera
-
             }
 
             public void doWork() {
@@ -209,7 +203,6 @@ public class GUI extends JPanel{
                 fireTableCellUpdated(row, col);
             }
         };
-       // jt.setModel(model);
     }
 
     public void set1inTable( int row, int col){ // bo model to zmienna prywatna wiec trzeba metode publiczna do niej

@@ -4,9 +4,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-/**
- * Created by crux3 on 26.05.2017.
- */
+
 public class Worker extends SwingWorker<Object, Object> {
 
     private final int N,M,Mi,Lambda;
@@ -26,9 +24,8 @@ public class Worker extends SwingWorker<Object, Object> {
         this.labelBestValue=labelBestValue;
         this.jt=jTable;
     }
-    @Override
+
     protected Object doInBackground() throws Exception {
-        // model.setValueAt(n_temp,1,1); //ustawianie danej wartosci
         Organisms org = new Organisms(N,M,Mi);
         List<int[][]> organizmy=org.doGUI();
         org.print_deb();

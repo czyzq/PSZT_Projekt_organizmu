@@ -7,13 +7,8 @@ import java.lang.System;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by konrad on 14.05.2017.
- */
+
 public class Organisms {
-
-
-    //karolina 14.05
 
 
     private List<HashSet<Point>> listMPoints; // moze nazwac to genotyp?
@@ -54,10 +49,8 @@ public class Organisms {
             momentBez=momBezwl(orgnisms.get(i), srodekCiezkosci(orgnisms.get(i),m));
             System.out.println("f przyst: "+ fPrzyst(momentBez,liczbaCzesci));
             listBitVectors.add( polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)));
-          //  mapVectFunc.put(polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)),fPrzyst(momentBez,liczbaCzesci));
 
         }
-        //System.out.println("posrotwana mapa" + sortByValue(mapVectFunc).size());
     }
     private void newEmptyArrays(){
         for(int i=0;i<mi;i++)   // dodanie mi razy do listy
@@ -80,7 +73,6 @@ public class Organisms {
             listMPoints.add(mPoints);                          // dodanie nowego wektora pktów do listy
 
             for(Point p : mPoints)                            //dodanie 1 do tablic kolejno z zbioru
-               // orgnisms.get(i)[p.x][p.y]=1;              //opcja dla typowego fora
                 table[p.x][p.y]+=1;
         }
     }
@@ -91,11 +83,9 @@ public class Organisms {
         ArrayList<Point> list = new ArrayList<>();
         for (int i=0; i<envi.length;i++)
         {
-            //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
-                //to chyba długość i-tej tablicy tzn. np. jeśli wcześniej była szerokość to teraz jest wysokość
             for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]!=0) //18.05 zm
+                if(envi[i][j]!=0)
                 {
                     list.add(new Point(i,j));
                 }
@@ -110,7 +100,7 @@ public class Organisms {
     {
 
         ArrayList<ArrayList<Point>> listaCzesci =new ArrayList<ArrayList<Point>>();
-        int iter=1;
+        //int iter=1;
         while(!listaOne.isEmpty())
         {
             ArrayList<Point> czesc =new ArrayList<Point>();
@@ -134,11 +124,9 @@ public class Organisms {
                     }
                 }
             }
-           /* System.out.print("\n Czesc "+iter+" : [");
-            czesc.stream().forEach((p)-> System.out.print("[" + p.x +"," + p.y + "]"));
-            System.out.print("] ");*/
+
             listaCzesci.add(czesc);
-            iter++;
+            //iter++;
         }
         return listaCzesci.size();
     }
@@ -151,10 +139,9 @@ public class Organisms {
         double os = (double)(envi.length+1)/2;
         for (int i=0; i<envi.length;i++)
         {
-            //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
-            for(int j=0; j<envi[i].length;j++)
+           for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]!=0) //18.05 zm
+                if(envi[i][j]!=0)
                 {
                     mkr=mkr+Math.sqrt(Math.pow(i+1-os, 2)+Math.pow(j+1-os, 2))*envi[i][j]; //mniozenie odleglosci przez mase (licznik wzoru na srodek ciezkosci)
                 }
@@ -170,10 +157,9 @@ public class Organisms {
         // sr to srodek ciezkosci rowny mkr/mm
         for (int i=0; i<envi.length;i++)
         {
-            //tak znalazlam ze envi[i] i dopiero dlugosc ale dlaczego nie moze byc bez [i]?
             for(int j=0; j<envi[i].length;j++)
             {
-                if(envi[i][j]!=0) //18.05 zm
+                if(envi[i][j]!=0)
                 {
                     moment = moment+(Math.pow(i+1-sr, 2)+Math.pow(j+1-sr, 2))*envi[i][j]; //mnozenie kwadratu odleglosci przez mase
                 }
@@ -204,8 +190,6 @@ public class Organisms {
             tab[i++]=liczbaDec%2;
             liczbaDec/=2;
         }
-        //for(int j=i-1;j>=0;j--)
-        //  System.out.print(  +tab[j]);
 
         return tab;
     }
@@ -221,8 +205,6 @@ public class Organisms {
                 dec+=Math.pow(2,ind);
             }
         }
-        //sprawdzenie
-        //System.out.print("\n dec: "+dec);
 
         return dec;
     }
@@ -242,22 +224,14 @@ public class Organisms {
             {
                 tabX= decToBin(pkt.x, potegaDwojki); //teraz sa tablice
                 //dla spr
-                //System.out.print( "\n wspolrzedna x punktu "+in+" : " +tabX[2]+tabX[1]+tabX[0]);
                 java.lang.System.arraycopy(tabX,0,tab,index,potegaDwojki); //tablice tabX od indeksu 0 kopiuje do tablicy tab od indeksu index  , kopiuje potegaDwojki elementow
                 index+=potegaDwojki;
                 tabY= decToBin(pkt.y, potegaDwojki);
-                // dla spr
-                //System.out.print( "\n wspolrzedna y punktu "+in+" : " +tabY[2]+tabY[1]+tabY[0]);
                 java.lang.System.arraycopy(tabY,0,tab,index,potegaDwojki);  // jak pozbyc sie przodu, bo import nie dziala
                 index+=potegaDwojki;
             }
         }
 
-        //to wypisuje pkt0.x, pkt0.y, pkt1.x, pkt1.y itd (ale w odwrotniej kolejnosci tzn, jezeli np x=1, y=3 to wypisze: 100, 110)
-        //ta konwencja co w zamianie napisalam
-        /*System.out.print( "\n  polozenie na bity o kolei jak w tab wpisane: ");
-        for(int j=0;j<mm*potegaDwojki*2;j++)
-            System.out.print(  +tab[j]); */
 
         return  tab;
     }
@@ -278,7 +252,6 @@ public class Organisms {
                 if(WektorBitow[index]==1)
                 {
                     x+=Math.pow(2, i);
-                    //System.out.print("\n index w x: "+index);
                 }
                 index++;
             }
@@ -288,14 +261,10 @@ public class Organisms {
                 if(WektorBitow[index]==1)
                 {
                     y+=Math.pow(2, i);
-                    //System.out.print("\n index w y: "+index);
                 }
                 index++;
             }
-        	/*test
-        	System.out.print("\n x: "+x);
-        	System.out.print("\n y: "+y);
-        	*/
+
             ListaPunktow.add(new Point(x,y));
         }
         return ListaPunktow;
@@ -365,20 +334,7 @@ public class Organisms {
 
     public double getBestValueMap()
     {
-        /*int[][] temp = new int[n][n];
-        List<Point> listPoint_temp= wektorNaPolozenie((int[])sortByValue(mapVectFunc).keySet().toArray()[0], (int) (Math.log(n)/Math.log(2))); // stworzenie listy pkt z wektora bitowego
-        for(Point p : listPoint_temp)
-        {
-            temp[p.x][p.y]+=1; // dodanie wartosci do przedchwilo stworzonego organizmu
-        }
 
-        for (int[] ii : temp)
-        {
-            for (int i : ii)
-                System.out.print(i);
-            System.out.println();
-        }
-        System.out.println("\n");*/
         return (double)(sortByValue(mapVectFunc)).values().toArray()[0];
     }
 

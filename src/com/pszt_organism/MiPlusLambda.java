@@ -153,7 +153,6 @@ public class MiPlusLambda {
     }
 
 
-    //mam nadzieje ze dziala xd
     public ArrayList<int[]> miZrodzicowIpotomstwa(Map<int[],Double> mapVectFunc_tmp)
     {
         ArrayList<int[]> listaMi = new ArrayList<>();
@@ -175,7 +174,6 @@ public class MiPlusLambda {
         }
         else {
             iterationStop++;
-            //System.out.println(iterationStop);
         }
 
         return iterationStop;

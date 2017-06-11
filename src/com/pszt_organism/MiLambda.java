@@ -23,7 +23,7 @@ public class MiLambda extends MiPlusLambda{
         potegaDwojki=n_tmp;
         m=m_tmp;
         mi=mi_tmp;
-        lambda=lambda_tmp;
+        lambda=mi_tmp;
         max = 2*potegaDwojki*m-1;
         wyborKrzyzowania=krzyzowanie;
         theChosenOne=0;
@@ -94,7 +94,6 @@ public class MiLambda extends MiPlusLambda{
         }
         else {
             iterationStop++;
-            //System.out.println(iterationStop);
         }
 
         return iterationStop;
