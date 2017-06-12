@@ -90,8 +90,7 @@ public class Worker extends SwingWorker<Object, Object> {
 
     public void print_deb(List<int[][]> lista)
     {
-        for(int[][] o : lista) {
-        //int[][] o= lista.get(0);
+        int[][] o= lista.get(0);
             for (int j=0; j<o.length;j++)
         {
             for (int i=0; i<o[j].length;i++) {
@@ -103,6 +102,6 @@ public class Worker extends SwingWorker<Object, Object> {
             System.out.println();
         }
         System.out.println("\n");
-         }
+
     }
 }
