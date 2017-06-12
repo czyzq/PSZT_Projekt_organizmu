@@ -1,7 +1,7 @@
 package com.pszt_organism;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,13 +13,12 @@ public class MiPlusLambda {
 
 
     private ArrayList <int[]> listaPopulacjaMi = new ArrayList<>();
-    private ArrayList <int[]> listaTymczasowaLambda = new ArrayList<>();
     private int max ;
     private int lambda;
     private int potegaDwojki;
     private int m;
     private int mi;
-    private double theChosenOne;
+    private double theChosenOne; // najlepszy
     private int iterationStop;
     private String wyborKrzyzowania;
     public MiPlusLambda(){}
@@ -63,7 +62,6 @@ public class MiPlusLambda {
         for(int w=0; w<WektorZmutowany.length; w++)
         {
             int randomNum = ThreadLocalRandom.current().nextInt(min, max);
-            //System.out.print("\n numer random: "+randomNum);
             //jezeli losowy index z prawdopodobienstwa jest 1 to gen o indeksie w mutuje
             if(prawdopodobienstwo[randomNum ]==1)
             {
@@ -82,7 +80,6 @@ public class MiPlusLambda {
         //krzyżowanie z 1 locusem, wybieranym losowo
         ArrayList<int[]> Wektory = new ArrayList<>();
         int locus = ThreadLocalRandom.current().nextInt(0, Wektor1.length-1);
-        //System.out.print("\n !!LOCUS" +locus);
         int[] Temp = (int[])Wektor1.clone();
         for (int i = locus + 1; i <= Wektor1.length-1; i++)
             if(Wektor1[i]!=Wektor2[i])

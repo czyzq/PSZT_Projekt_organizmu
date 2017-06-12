@@ -3,8 +3,7 @@ package com.pszt_organism;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Random;
+
 
 public class Main {
 
