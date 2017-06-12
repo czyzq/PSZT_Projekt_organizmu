@@ -9,8 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+
 
 import static java.lang.Integer.parseInt;
 
@@ -21,7 +20,7 @@ public class GUI extends JPanel{
 
     private JTable jt;
     private JScrollPane jsp;
-    private JButton buttonStart;
+    private static JButton buttonStart;
     private JLabel labelAlg,labelN, labelM, labelMi,labelLambda,labelCrossing,labelIteration,labelBestValue;
     private JFormattedTextField paramM;
     private JComboBox algEvo,paramN, paramMi,paramLambda,paramCrossing;
@@ -161,7 +160,7 @@ public class GUI extends JPanel{
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                buttonStart.setEnabled(false);
                 int n_temp =parseInt(String.valueOf(paramN.getSelectedItem()));
                 modelMethods((int) Math.pow(2,n_temp));
                 jt.setModel(model); // te metody sa ze sobą powiązane
@@ -174,6 +173,7 @@ public class GUI extends JPanel{
 
                 Worker worker = new Worker(getN(),getM(),getMi(),getLambda(),getCrossing(),getAlgorithms(),labelIteration,labelBestValue,jt);
                 worker.execute();
+
             }
         });
     }
@@ -231,7 +231,10 @@ public class GUI extends JPanel{
     public int getLambda(){return parseInt(String.valueOf(paramLambda.getSelectedItem()));}
     public String getCrossing() {return String.valueOf(paramCrossing.getSelectedItem());}
     public String getAlgorithms() {return String.valueOf(algEvo.getSelectedItem());}
+    public static void setEnableStart(){
+        buttonStart.setEnabled(true);
 
+    }
 
 }
 

@@ -72,8 +72,11 @@ public class Worker extends SwingWorker<Object, Object> {
                 labelIteration.setText("Liczba iteracji bez lepszego osobnika: " + counter);
                 labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
                 print_deb(organizmy);
+
             }
             System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
+
+
         }
 
 
@@ -85,6 +88,7 @@ public class Worker extends SwingWorker<Object, Object> {
             Thread.sleep(10);
         }
         */
+        GUI.setEnableStart();
         return null;
     }
 
