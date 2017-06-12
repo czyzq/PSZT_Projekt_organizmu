@@ -140,8 +140,8 @@ public class MiPlusLambda {
         {
             //dla kolejno wylosowanych par lambda tworzonych jest 2 dzieci , ktore sa mutowane i dodawane do listy potomstwa
             if(wyborKrzyzowania.equals("Jednopunktowe")) {
-                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(0), 0, max));
-                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(1), 0, max));
+                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(mutacja(listaLambda.get(i),0,max), mutacja(listaLambda.get(i + 1),0,max)).get(0),0,max));
+                listaPopulacjaMi.add(mutacja(krzyzowanie_jednopunktowe(mutacja(listaLambda.get(i),0,max), mutacja(listaLambda.get(i + 1),0,max)).get(1),0,max));
             }
             else{
                 listaPopulacjaMi.add(mutacja(krzyzowanie_dwupunktowe(listaLambda.get(i), listaLambda.get(i + 1)).get(0), 0, max));

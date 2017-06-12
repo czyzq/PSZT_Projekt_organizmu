@@ -1,5 +1,6 @@
 package com.pszt_organism;
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -89,17 +90,19 @@ public class Worker extends SwingWorker<Object, Object> {
 
     public void print_deb(List<int[][]> lista)
     {
-        //for(int[][] o : lista) {
-        int[][] o= lista.get(0);
-        for (int j=0; j<o.length;j++)
+        for(int[][] o : lista) {
+        //int[][] o= lista.get(0);
+            for (int j=0; j<o.length;j++)
         {
             for (int i=0; i<o[j].length;i++) {
                 jt.setValueAt(o[i][j],j,i);
+                if(parseInt(String.valueOf(jt.getValueAt(i,j)))!=0)
+                jt.getCellRenderer(i,j);
                 System.out.print(o[i][j]);
             }
             System.out.println();
         }
         System.out.println("\n");
          }
-    //}
+    }
 }

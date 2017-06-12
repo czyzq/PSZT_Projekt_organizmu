@@ -2,6 +2,7 @@ package com.pszt_organism;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -40,7 +41,20 @@ public class GUI extends JPanel{
 
 
         modelMethods(32);
-        jt = new JTable(model);
+        jt = new JTable(model){
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int rowIndex,
+                                             int columnIndex) {
+                JComponent component = (JComponent) super.prepareRenderer(renderer, rowIndex, columnIndex);
+                if(getValueAt(rowIndex, columnIndex).toString().equalsIgnoreCase("0")){
+                    component.setBackground(Color.WHITE);
+                    component.setForeground(Color.BLACK);}
+                else{
+                    component.setBackground(Color.GREEN);
+                    component.setForeground(Color.BLACK);}
+                return component;
+            }
+        };
 
         setBackground(Color.white);
 
@@ -202,6 +216,7 @@ public class GUI extends JPanel{
                 tableData[row][col] = value;
                 fireTableCellUpdated(row, col);
             }
+
         };
     }
 
