@@ -133,15 +133,14 @@ public class Organisms {
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
     //za srodek czyli os odniesienia przyjmuje srodek tablicy
-    //private double srodekCiezkosci (int[][]envi, int mm)
     private Point srodekCiezkosci (int[][]envi, int mm)
     {
         double mkr_x=0.0;
         double mkr_y=0.0;
         Point srCi=new Point(0,0);
-        double os = (double)(envi.length+1)/2;
+       // double os = (double)(envi.length+1)/2;
        // double os = (double)(envi.length)/2;  //za poczatek ukladu uznawany srodek tablicy
-        //double os = 0.0;
+        double os = 0.0;
         for (int i=0; i<envi.length;i++)
         {
            for(int j=0; j<envi[i].length;j++)
