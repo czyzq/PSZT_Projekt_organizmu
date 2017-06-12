@@ -1,6 +1,6 @@
 package com.pszt_organism;
 import javax.swing.*;
-import java.awt.*;
+
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -80,14 +80,6 @@ public class Worker extends SwingWorker<Object, Object> {
         }
 
 
-        /*
-        for (int index = 0; index < 100; index++) {
-            int progress = Math.round(((float) index / 100f) * 10f);
-            setProgress(progress);
-
-            Thread.sleep(10);
-        }
-        */
         GUI.setEnableStart();
         return null;
     }
@@ -101,11 +93,11 @@ public class Worker extends SwingWorker<Object, Object> {
                 jt.setValueAt(o[i][j],j,i);
                 if(parseInt(String.valueOf(jt.getValueAt(i,j)))!=0)
                 jt.getCellRenderer(i,j);
-                System.out.print(o[i][j]);
+
             }
-            System.out.println();
+
         }
-        System.out.println("\n");
+
 
     }
 }

@@ -1,6 +1,5 @@
 package com.pszt_organism;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.awt.Point;
 import java.lang.System;
@@ -47,7 +46,6 @@ public class Organisms {
         {
             liczbaCzesci=grupowanieCzesci(selectOne(orgnisms.get(i)));
             momentBez=momBezwl(orgnisms.get(i), srodekCiezkosci(orgnisms.get(i),m));
-            System.out.println("f przyst: "+ fPrzyst(momentBez,liczbaCzesci));
             listBitVectors.add( polozenieNaWektor(selectOne(orgnisms.get(i)),m, (int) (Math.log(n)/Math.log(2)),orgnisms.get(i)));
 
         }
@@ -334,9 +332,6 @@ public class Organisms {
         return mapVectFunc;
     }
 
-    public void setMapVectFunc(Map<int[], Double> mapVectFunc) {
-        this.mapVectFunc = mapVectFunc;
-    }
 
     public List<int[][]> doGUI(){
         return orgnisms;
