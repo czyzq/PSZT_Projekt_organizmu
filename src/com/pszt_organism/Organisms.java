@@ -133,25 +133,34 @@ public class Organisms {
 
     //wyznacza srodek ciezkosci organizmu envi o ilosci jedynek rownej mm
     //za srodek czyli os odniesienia przyjmuje srodek tablicy
-    private double srodekCiezkosci (int[][]envi, int mm)
+    //private double srodekCiezkosci (int[][]envi, int mm)
+    private Point srodekCiezkosci (int[][]envi, int mm)
     {
-        double mkr=0;
+        double mkr_x=0.0;
+        double mkr_y=0.0;
+        Point srCi=new Point(0,0);
         double os = (double)(envi.length+1)/2;
+       // double os = (double)(envi.length)/2;  //za poczatek ukladu uznawany srodek tablicy
+        //double os = 0.0;
         for (int i=0; i<envi.length;i++)
         {
            for(int j=0; j<envi[i].length;j++)
             {
                 if(envi[i][j]!=0)
                 {
-                    mkr=mkr+Math.sqrt(Math.pow(i+1-os, 2)+Math.pow(j+1-os, 2))*envi[i][j]; //mniozenie odleglosci przez mase (licznik wzoru na srodek ciezkosci)
+                    //mkr=mkr+Math.sqrt(Math.pow(i+1-os, 2)+Math.pow(j+1-os, 2))*envi[i][j]; //mniozenie odleglosci przez mase (licznik wzoru na srodek ciezkosci)
+                    mkr_x=mkr_x+(i+1-os)*envi[i][j]; //mniozenie odleglosci przez mase (licznik wzoru na srodek ciezkosci)
+                    mkr_y=mkr_y+(j+1-os)*envi[i][j];
                 }
             }
         }
-        return mkr/mm; //mianowniekiem wzoru na srodek ciezkosci jest suma mas a u nas zawsze bedzie to tyle ile ustalimy m
+        srCi.x=(int)mkr_x/mm;
+        srCi.y= (int) mkr_y/mm;
+        return srCi;
     }
 
     // oblicza moment bezwladnosci liczony wzgledem srodka ciezkosi
-    private double momBezwl(int[][]envi, double sr)
+    private double momBezwl(int[][]envi, Point sr)
     {
         double moment=0;
         // sr to srodek ciezkosci rowny mkr/mm
@@ -161,7 +170,9 @@ public class Organisms {
             {
                 if(envi[i][j]!=0)
                 {
-                    moment = moment+(Math.pow(i+1-sr, 2)+Math.pow(j+1-sr, 2))*envi[i][j]; //mnozenie kwadratu odleglosci przez mase
+                    //                    moment = moment+(Math.pow(i+1-sr.x, 2)+Math.pow(j+1-sr.y, 2))*envi[i][j]; //mnozenie kwadratu odleglosci przez mase
+
+                    moment = moment+(Math.pow(i+1-sr.x, 2)+Math.pow(j+1-sr.y, 2))*envi[i][j]; //mnozenie kwadratu odleglosci przez mase
                 }
             }
         }

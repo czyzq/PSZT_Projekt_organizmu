@@ -53,10 +53,10 @@ public class MiPlusLambda {
         }
         //gdzies bedzie 1 i jezeli ja sie wylosuje to znaczy ze gen ma byc negowany
         int randomZmiana = ThreadLocalRandom.current().nextInt(0, max);
-        int randomZmiana2 = ThreadLocalRandom.current().nextInt(0, max);
+        //int randomZmiana2 = ThreadLocalRandom.current().nextInt(0, max);
 
         prawdopodobienstwo[randomZmiana]=1;
-        prawdopodobienstwo[randomZmiana2]=1;
+        //prawdopodobienstwo[randomZmiana2]=1;
 
         int[]WektorZmutowany = (int[])Wektor.clone();
 
