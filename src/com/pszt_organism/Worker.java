@@ -29,7 +29,7 @@ public class Worker extends SwingWorker<Object, Object> {
     protected Object doInBackground() throws Exception {
         Organisms org = new Organisms(N,M,Mi);
         List<int[][]> organizmy=org.doGUI();
-        org.print_deb();
+        //org.print_deb();
         org.init();
         int counter=0;
         double max=0.0;
@@ -58,7 +58,7 @@ public class Worker extends SwingWorker<Object, Object> {
             MiLambda ag = new MiLambda(N,M,Mi,Lambda,Crossing);
             //testy
             ag.setListaPopulacjaMi(org.getListBitVectors());
-            while (ag.stop(org.getBestValueMap()) != 100) {
+            while (ag.stop2(org.getBestValueMap(),org.sortByValue(org.getMapVectFunc())) != 100) {
                 ag.dodajPotomstwoR(ag.losujLambda()); // krzyzowanie i dodwwanie populacji potomnej
                 org.listToMap(ag.getListaPopulacjaR());
                 ag.setListaPopulacjaMi(ag.miZrodzicowIpotomstwa(org.sortByValue(org.getMapVectFunc())));
@@ -68,14 +68,14 @@ public class Worker extends SwingWorker<Object, Object> {
                     counter=0;
                 if(org.getBestValueMap()>max)
                     max=org.getBestValueMap();
-
                 labelIteration.setText("Liczba iteracji bez lepszego osobnika: " + counter);
                 labelBestValue.setText("Oto najlepsza uzyskana wartość: " + max);
                 print_deb(organizmy);
 
             }
-            System.out.println("\n oto pierwsza wartosc " + org.getBestValueMap());
 
+            org.listToMap(ag.getBestVector());// wyświetla najlepszego osobnika - lista jedno elelemntowa
+            print_deb(organizmy);
 
         }
 

@@ -19,6 +19,7 @@ public class MiLambda extends MiPlusLambda{
     private double theChosenOne;
     private int iterationStop;
     private String wyborKrzyzowania;
+    private ArrayList<int[]> bestVector = new ArrayList<>(); // jednoelementowa lista
     public MiLambda(int n_tmp, int m_tmp, int mi_tmp, int lambda_tmp, String krzyzowanie){
         potegaDwojki=n_tmp;
         m=m_tmp;
@@ -85,17 +86,25 @@ public class MiLambda extends MiPlusLambda{
         return listaMi;
     }
 
-    public int stop(double firstValueFromMap)
+    public int stop2(double firstValueFromMap, Map<int[], Double> map)
     {
         if(theChosenOne<firstValueFromMap)
         {
             theChosenOne=firstValueFromMap;
             iterationStop=0;
+
+             if(!bestVector.isEmpty())
+                bestVector.clear();
+            bestVector.add((int[])map.keySet().toArray()[0]);
+
         }
         else {
             iterationStop++;
         }
 
         return iterationStop;
+    }
+    public ArrayList<int[]> getBestVector(){
+        return bestVector;
     }
 }
